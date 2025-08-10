@@ -8,7 +8,7 @@ MLX_PATH = minilibx-linux/
 
 MLX_LIB = $(MLX_PATH)libmlx.a
 
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
+MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 
 SRCS	=	./main.c\
