@@ -3,4 +3,5 @@
 int main (void)
 {
     printf("hello World\n");
+    printf("Tomek's testing");
 }
