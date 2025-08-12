@@ -1,6 +1,10 @@
 #include "include/cub3d.h"
 
-int main (void)
+int main (int argc, char **argv)
 {
-    printf("hello World\n");
+    t_game game;
+
+    check_map_name(argc, argv);
+    window_size(game, argv);
+    configuration_map_checker(game, argv);
 }
