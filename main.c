@@ -1,7 +1,7 @@
-#include "include/cub3d.h"
+#include "include/cub3D.h"
 
 int main (void)
 {
     printf("hello World\n");
-    printf("Tomek's testing");
+    printf("Tomek's testing\n");
 }
