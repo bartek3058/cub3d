@@ -12,24 +12,32 @@ MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 
 SRCS	=	./main.c\
+			./src/map/check_map.c\
 					
 				
 OBJS	=	${SRCS:.c=.o}
+
+LIBPATH = libft/
+
+LIBFT = $(LIBPATH)libft.a
 
 
 all: compile ${NAME}
 
 compile:
 		@make -C ${MLX_PATH} all
+		@make -C ${LIBPATH}
 
-$(NAME): $(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+		$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
 
 clean:
 		make -C $(MLX_PATH) clean
+		make -C ${LIBPATH} clean
 		rm -f $(OBJS)
 
 fclean: clean
+			make fclean -C ${LIBPATH}
 			rm -f $(NAME)
 
 re: fclean all
