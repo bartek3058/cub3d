@@ -90,7 +90,8 @@ typedef struct s_mygame
 
 // map
 void    check_map_name(int argc, char **argv);
-void    window_size(char **argv);
+void    check_map_size(char **argv);
+char    **load_map(char *filename);
 
 
 #endif
