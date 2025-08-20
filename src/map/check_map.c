@@ -1,4 +1,4 @@
-#include "../../include/cub3d.h"
+#include "../../include/cub3D.h"
 
 // void    configuration_map_checker(t_game *game, char **argv);
 // {
