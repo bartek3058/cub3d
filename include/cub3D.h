@@ -93,5 +93,15 @@ void    check_map_name(int argc, char **argv);
 void    check_map_size(char **argv);
 char    **load_map(char *filename);
 
+//init
+int    init_window(t_mygame *game);
+
+//hooks
+int	close_hook(t_mygame *game);
+int	keys_hook(int keycode, t_mygame *game);
+
+//cleanup
+void    cleanup_display(t_mygame *game);
+void    cleanup_all(t_mygame *game);
 
 #endif

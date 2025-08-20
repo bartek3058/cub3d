@@ -13,8 +13,10 @@ MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 SRCS	=	./main.c\
 			./src/map/check_map.c\
-					
-				
+			./src/init.c\
+			./src/cleanup.c\
+			./src/hooks.c\
+
 OBJS	=	${SRCS:.c=.o}
 
 LIBPATH = libft/
