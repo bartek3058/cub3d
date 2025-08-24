@@ -10,7 +10,7 @@ void    check_map_name(int argc, char **argv)
 
     if (argc != 2)
     {
-        printf("Error\nThere is no map argument");
+        printf("Error\nThere is no map argument\n");
         exit (1);
     }
     if (!argv[1])
@@ -50,7 +50,7 @@ static  char    *read_file(int fd)
     }
     return (content);
 }
-char    **load_map(char *filename)
+void    load_map(char *filename, t_mygame *game)
 {
     int     fd;
     char    *file_content;
@@ -64,12 +64,14 @@ char    **load_map(char *filename)
     }
     file_content = read_file(fd);
     close(fd);
-    if (!file_content)
+    if (!file_content || file_content[0] == '\0')
     {
-        printf("Error\nEmpty file\n");
+        free(file_content);
+        write(2, "Error\nEmpty file\n", 17);
         exit(EXIT_FAILURE);
     }
     lines = ft_split(file_content, '\n');
     free(file_content);
-    return (lines);
+    parser(lines, game);     // tylko używa, nie zwalnia!
+    free_split(lines);       // teraz dopiero zwalniasz
 }

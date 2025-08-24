@@ -29,14 +29,6 @@ typedef struct s_myplayer
     double      plane_y;    // wektor kamery Y
 }   t_myplayer;
 
-typedef struct s_mytextures
-{
-    t_img       north;
-    t_img       south;
-    t_img       west;
-    t_img       east;
-}   t_mytextures;
-
 typedef struct s_myimg
 {
     void    *img;       // wskaźnik MLX na obraz
@@ -45,6 +37,14 @@ typedef struct s_myimg
     int     line_len;   // długość linii w bajtach
     int     endian;     // endian
 }   t_myimg;
+
+typedef struct s_mytextures
+{
+    t_myimg       north;
+    t_myimg       south;
+    t_myimg       west;
+    t_myimg       east;
+}   t_mytextures;
 
 typedef struct s_myconfig
 {
@@ -91,7 +91,17 @@ typedef struct s_mygame
 // map
 void    check_map_name(int argc, char **argv);
 void    check_map_size(char **argv);
-char    **load_map(char *filename);
+void    load_map(char *filename, t_mygame *game);
+
+//free
+void	free_split(char **arr);
+
+//parser
+void	parse_texture(char **tokens, char **dest, char **lines);
+void	parser(char **lines, t_mygame *game);
+
+//init
+void    init_myconfig(t_mygame *game);
 
 //init
 int    init_window(t_mygame *game);
