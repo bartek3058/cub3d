@@ -103,5 +103,15 @@ void	parser(char **lines, t_mygame *game);
 //init
 void    init_myconfig(t_mygame *game);
 
+//init
+int    init_window(t_mygame *game);
+
+//hooks
+int	close_hook(t_mygame *game);
+int	keys_hook(int keycode, t_mygame *game);
+
+//cleanup
+void    cleanup_display(t_mygame *game);
+void    cleanup_all(t_mygame *game);
 
 #endif

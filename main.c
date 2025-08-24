@@ -3,15 +3,21 @@
 int main (int argc, char **argv)
 {
     t_mygame game;
-    void    *mlx_connection;
-    void    *mlx_window;
 
-   
     check_map_name(argc, argv);
     load_map(argv[1], &game);
     // configuration_map_checker(game, argv);
-    mlx_connection = mlx_init();
-    mlx_window = mlx_new_window(mlx_connection, 500, 500, "My window");
-    mlx_pixel_put(mlx_connection, mlx_window, 250, 250, 0xFFFFFF);
-    mlx_loop(mlx_connection);
+    if (!init_window(&game))
+    {
+        //cleanup_map(&game);     // trzeba będzie dopisać
+        cleanup_display(&game);
+        exit(EXIT_FAILURE);
+    }
+    mlx_pixel_put(game.mlx, game.win, 250, 250, 0xFFFFFF);
+    mlx_hook(game.win, 17, 0, close_hook, &game);
+	mlx_key_hook(game.win, keys_hook, &game);
+	//mlx_loop_hook(game.mlx, game_loop, &game);
+    mlx_loop(game.mlx);
+	cleanup_all(&game);
+	exit(EXIT_SUCCESS);
 }

@@ -17,8 +17,10 @@ SRCS	=	./main.c\
 			./src/parser/parser2.c\
 			./src/free/free.c\
 			./src/init/init_b.c\
-					
-				
+			./src/init.c\
+			./src/cleanup.c\
+			./src/hooks.c\
+
 OBJS	=	${SRCS:.c=.o}
 
 LIBPATH = libft/
