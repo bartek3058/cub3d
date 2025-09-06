@@ -91,17 +91,22 @@ typedef struct s_mygame
 // map
 void    check_map_name(int argc, char **argv);
 void    check_map_size(char **argv);
-void    load_map(char *filename, t_mygame *game);
+char    **load_map(char *filename);
 
 //free
 void	free_split(char **arr);
 
 //parser
-void	parse_texture(char **tokens, char **dest, char **lines);
 void	parser(char **lines, t_mygame *game);
+int parse_map(t_mygame *game);
+void set_player_direction(t_myplayer *player, char dir);
+int parse_config(char **lines, t_mygame *game);
+int is_blank(const char *s);
+
 
 //init
 void    init_myconfig(t_mygame *game);
+void	init_map(t_mygame *game, char **lines);
 
 //init
 int    init_window(t_mygame *game);
@@ -113,5 +118,8 @@ int	keys_hook(int keycode, t_mygame *game);
 //cleanup
 void    cleanup_display(t_mygame *game);
 void    cleanup_all(t_mygame *game);
+
+//utils
+int	ft_strcmp(const char *s1, const char *s2);
 
 #endif

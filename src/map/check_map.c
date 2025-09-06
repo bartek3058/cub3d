@@ -1,9 +1,5 @@
 #include "../../include/cub3D.h"
 
-// void    configuration_map_checker(t_game *game, char **argv);
-// {
-    
-// }
 void    check_map_name(int argc, char **argv)
 {
     size_t len;
@@ -50,7 +46,7 @@ static  char    *read_file(int fd)
     }
     return (content);
 }
-void    load_map(char *filename, t_mygame *game)
+char    **load_map(char *filename)
 {
     int     fd;
     char    *file_content;
@@ -72,6 +68,5 @@ void    load_map(char *filename, t_mygame *game)
     }
     lines = ft_split(file_content, '\n');
     free(file_content);
-    parser(lines, game);     // tylko używa, nie zwalnia!
-    free_split(lines);       // teraz dopiero zwalniasz
+    return (lines);
 }

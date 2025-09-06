@@ -1,4 +1,4 @@
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 int    init_window(t_mygame *game)
 {

@@ -15,11 +15,14 @@ SRCS	=	./main.c\
 			./src/map/check_map.c\
 			./src/parser/parser.c\
 			./src/parser/parser2.c\
+			./src/parser/parser3.c\
+			./src/parser/parser4.c\
 			./src/free/free.c\
 			./src/init/init_b.c\
-			./src/init.c\
-			./src/cleanup.c\
-			./src/hooks.c\
+			./src/init/init.c\
+			./src/free/cleanup.c\
+			./src/exec/hooks.c\
+			./src/utils/utils_b.c\
 
 OBJS	=	${SRCS:.c=.o}
 

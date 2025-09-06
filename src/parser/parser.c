@@ -1,103 +1,74 @@
 #include "../../include/cub3d.h"
 
-static int	parse_rgb_component(char *s, char **lines)
+void    parser(char **argv, t_mygame *game)
 {
-	int	val;
+    char **lines;
+    int map_start;
 
-	val = atoi(s);
-	if (val < 0 || val > 255)
-	{
-		write(2, "Error\nRGB out of range\n", 24);
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
-	return (val);
+    lines = load_map(argv[1]);
+    map_start = parse_config(lines, game);
+    init_map(game, lines + map_start);
+    parse_map(game);
+
+}
+static int is_player_char(char c)
+{
+    if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+        return (1);
+    return (0);
 }
 
-static int	rgb_to_int(char *s, char **lines)
+static int handle_tile(t_mygame *game, int i, int j, int *player_found)
 {
-	char	**split;
-	int		r;
-	int		g;
-	int		b;
-	int		color;
+    char c;
 
-	split = ft_split(s, ',');
-	if (!split || !split[0] || !split[1] || !split[2])
-	{
-		write(2, "Error\nInvalid RGB format\n", 26);
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
-	r = parse_rgb_component(split[0], lines);
-	g = parse_rgb_component(split[1], lines);
-	b = parse_rgb_component(split[2], lines);
-	color = (r << 16) | (g << 8) | b;
-	free_split(split);
-	return (color);
+    c = game->map.grid[i][j];
+    if (c == '1' || c == '0' || c == ' ')
+        return 0;
+    if (is_player_char(c))
+    {
+        if (*player_found == 1)
+        {
+            fprintf(stderr, "Error: multiple player positions\n");
+            return 1;
+        }
+        *player_found = 1;
+        game->player.x = j + 0.5;
+        game->player.y = i + 0.5;
+        set_player_direction(&game->player, c);
+        game->map.grid[i][j] = '0';
+        return 0;
+    }
+    fprintf(stderr, "Error: invalid char '%c' at (%d,%d)\n", c, i, j);
+    return 1;
 }
 
-static void	parse_color(char **tokens, int *dest, char **lines)
+int parse_map(t_mygame *game)
 {
-	if (*dest != -1)
-	{
-		write(2, "Error\nDuplicate color definition\n", 33);
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
-	if (!tokens[1])
-	{
-		write(2, "Error\nMissing color value\n", 27);
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
-	*dest = rgb_to_int(tokens[1], lines);
-}
+    int i;
+    int j;
+    int err;
+    int player_found;
 
-static int	handle_tokens(char **tokens, t_mygame *game, char **lines)
-{
-	if (strcmp(tokens[0], "NO") == 0)
-		parse_texture(tokens, &game->config.tex_no, lines);
-	else if (strcmp(tokens[0], "SO") == 0)
-		parse_texture(tokens, &game->config.tex_so, lines);
-	else if (strcmp(tokens[0], "WE") == 0)
-		parse_texture(tokens, &game->config.tex_we, lines);
-	else if (strcmp(tokens[0], "EA") == 0)
-		parse_texture(tokens, &game->config.tex_ea, lines);
-	else if (strcmp(tokens[0], "F") == 0)
-		parse_color(tokens, &game->config.floor_color, lines);
-	else if (strcmp(tokens[0], "C") == 0)
-		parse_color(tokens, &game->config.ceil_color, lines);
-	else
-		return (0);
-	return (1);
-}
-
-void	parser(char **lines, t_mygame *game)
-{
-	int		i;
-	char	**tokens;
-
-	i = 0;
-	init_myconfig(game);
-	while (lines[i])
-	{
-		if (lines[i][0] == '\0')
-		{
-			i++;
-			continue;
-		}
-		tokens = ft_split(lines[i], ' ');
-		if (tokens && tokens[0])
-		{
-			if (!handle_tokens(tokens, game, lines))
-			{
-				free_split(tokens);
-				break ;
-			}
-		}
-		free_split(tokens);
-		i++;
-	}
+    i = 0;
+    player_found = 0;
+    while (i < game->map.height)
+    {
+        j = 0;
+        while (j < game->map.width)
+        {
+            err = handle_tile(game, i, j, &player_found);
+            if (err == 1)
+                return 1;
+            j++;
+        }
+        i++;
+    }
+    if (player_found == 0)
+    {
+        fprintf(stderr, "Error: no player position found\n");
+        return 1;
+    }
+    return 0;
 }
 

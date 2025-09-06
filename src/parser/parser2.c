@@ -1,24 +1,45 @@
 #include "../../include/cub3d.h"
 
-void	parse_texture(char **tokens, char **dest, char **lines)
+static void set_direction_north(t_myplayer *player)
 {
-	if (*dest != NULL)
-	{
-		write(2, "Error\nDuplicate texture definition\n", 35);
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
-	if (!tokens[1])
-	{
-		write(2, "Error\nMissing texture path\n", 28);
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
-	*dest = strdup(tokens[1]);
-	if (!*dest)
-	{
-		perror("Error\nMalloc failed");
-		free_split(lines);
-		exit(EXIT_FAILURE);
-	}
+    player->dir_x = 0;
+    player->dir_y = -1;
+    player->plane_x = 0.66;
+    player->plane_y = 0;
+}
+
+static void set_direction_south(t_myplayer *player)
+{
+    player->dir_x = 0;
+    player->dir_y = 1;
+    player->plane_x = -0.66;
+    player->plane_y = 0;
+}
+
+static void set_direction_east(t_myplayer *player)
+{
+    player->dir_x = 1;
+    player->dir_y = 0;
+    player->plane_x = 0;
+    player->plane_y = 0.66;
+}
+
+static void set_direction_west(t_myplayer *player)
+{
+    player->dir_x = -1;
+    player->dir_y = 0;
+    player->plane_x = 0;
+    player->plane_y = -0.66;
+}
+
+void set_player_direction(t_myplayer *player, char dir)
+{
+    if (dir == 'N')
+        set_direction_north(player);
+    else if (dir == 'S')
+        set_direction_south(player);
+    else if (dir == 'E')
+        set_direction_east(player);
+    else if (dir == 'W')
+        set_direction_west(player);
 }

@@ -5,8 +5,7 @@ int main (int argc, char **argv)
     t_mygame game;
 
     check_map_name(argc, argv);
-    load_map(argv[1], &game);
-    // configuration_map_checker(game, argv);
+    parser(argv, &game);
     if (!init_window(&game))
     {
         //cleanup_map(&game);     // trzeba będzie dopisać
