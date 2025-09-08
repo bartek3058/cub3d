@@ -87,6 +87,8 @@ typedef struct s_mygame
 
 
 // Functions
+//main
+int    game_loop(void *param);
 
 // map
 void    check_map_name(int argc, char **argv);
@@ -124,5 +126,5 @@ int	ft_strcmp(const char *s1, const char *s2);
 
 //2d_map
 void   draw_square(t_myimg *img, int x, int y, int color);
-
+void   draw_2d_map(t_mygame *game);
 #endif

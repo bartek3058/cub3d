@@ -1,21 +1,67 @@
 #include "include/cub3d.h"
 
+char *test_map[10] = {
+    "1111111111",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000001",
+    "1000000N01",
+    "1111111111"
+};
+
+int   game_loop(void *param)
+{
+    t_mygame *game = (t_mygame *)param;
+
+    draw_2d_map(game); //Rysuje mapę 2D do bufora obrazu
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0); // Aktualizuje okno
+    return (0);
+}
+
+static void none(int argc, char **argv) //funkcja do ignorowania warningów o nieużywanych zmiennych
+{
+    (void)argc;
+    (void)argv;
+}
+
 int main (int argc, char **argv)
 {
     t_mygame game;
 
-    check_map_name(argc, argv);
-    parser(argv, &game);
+    // FOR TESTING PURPOSES
+    // For testing: set up a simple 10x10 map
+    game.map.grid = test_map;
+    game.map.width = 10;
+    game.map.height = 10;
+
+    // Optionally set player position manually if needed
+    game.player.x = 7.5;
+    game.player.y = 8.5;
+    game.player.dir_x = 0;
+    game.player.dir_y = -1;
+    none(argc, argv);
+    //END FOR TESTING PURPOSES
+
+    //check_map_name(argc, argv);
+    //parser(argv, &game);
+
+    
     if (!init_window(&game))
     {
         //cleanup_map(&game);     // trzeba będzie dopisać
         cleanup_display(&game);
         exit(EXIT_FAILURE);
     }
-    mlx_pixel_put(game.mlx, game.win, 250, 250, 0xFFFFFF);
+    game.img.img = mlx_new_image(game.mlx, 500, 500);
+    game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
+    //mlx_pixel_put(game.mlx, game.win, 250, 250, 0xFFFFFF);
     mlx_hook(game.win, 17, 0, close_hook, &game);
-	mlx_key_hook(game.win, keys_hook, &game);
-	//mlx_loop_hook(game.mlx, game_loop, &game);
+    mlx_key_hook(game.win, keys_hook, &game);
+    mlx_loop_hook(game.mlx, game_loop, &game);
     mlx_loop(game.mlx);
 	cleanup_all(&game);
 	exit(EXIT_SUCCESS);

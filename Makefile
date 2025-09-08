@@ -23,6 +23,7 @@ SRCS	=	./main.c\
 			./src/free/cleanup.c\
 			./src/exec/hooks.c\
 			./src/utils/utils_b.c\
+			./src/2d/2d_map.c\
 
 OBJS	=	${SRCS:.c=.o}
 
