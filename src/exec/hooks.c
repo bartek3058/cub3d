@@ -1,4 +1,4 @@
-#include "../../include/cub3D.h"
+#include "../../include/cub3d.h"
 
 int	close_hook(t_mygame *game)
 {

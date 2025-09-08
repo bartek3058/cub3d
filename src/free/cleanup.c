@@ -1,4 +1,4 @@
-#include "../../include/cub3D.h"
+#include "../../include/cub3d.h"
 
 void	cleanup_display(t_mygame *game)
 {

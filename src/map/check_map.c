@@ -1,4 +1,4 @@
-#include "../../include/cub3D.h"
+#include "../../include/cub3d.h"
 
 void    check_map_name(int argc, char **argv)
 {
