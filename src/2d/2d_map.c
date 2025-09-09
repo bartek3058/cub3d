@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-#define TITLE_SIZE 20
+#define TITLE_SIZE 10
 
 void   draw_square(t_myimg *img, int x, int y, int color)
 {
@@ -26,6 +26,18 @@ void   draw_square(t_myimg *img, int x, int y, int color)
     }
 }
 
+void   draw_player(t_mygame *game)
+{
+    int x;
+    int y;
+    int color;
+    
+    x = (int)game->player.x;
+    y = (int)game->player.y;
+    color = 0xFF0000; // czerwony dla gracza
+    draw_square(&game->img, x, y, color);
+}
+
 void   draw_2d_map(t_mygame *game)
 {
     int     x;
@@ -45,7 +57,7 @@ void   draw_2d_map(t_mygame *game)
             else if (cell == '0')
                 color = 0xCCCCCC; // szary dla przestrzeni
             else if (cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
-                color = 0xFF0000; // czerwony dla gracza
+                color = 0xCCCCCC; // czerwony dla gracza
             else
                 color = 0xFF00FF; // magenta dla innych znaków (błąd)
             draw_square(&game->img, x, y, color);
@@ -54,3 +66,9 @@ void   draw_2d_map(t_mygame *game)
         y++;
     }
 }
+
+// void   draw_all(t_mygame *game)
+// {
+//     draw_2d_map(game);
+//     draw_player(game);
+// }

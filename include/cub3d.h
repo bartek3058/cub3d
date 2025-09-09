@@ -113,6 +113,9 @@ void	init_map(t_mygame *game, char **lines);
 //init
 int    init_window(t_mygame *game);
 
+//init player
+void init_player_from_map(t_mygame *game);
+
 //hooks
 int	close_hook(t_mygame *game);
 int	keys_hook(int keycode, t_mygame *game);
@@ -125,6 +128,11 @@ void    cleanup_all(t_mygame *game);
 int	ft_strcmp(const char *s1, const char *s2);
 
 //2d_map
-void   draw_square(t_myimg *img, int x, int y, int color);
-void   draw_2d_map(t_mygame *game);
+void    draw_square(t_myimg *img, int x, int y, int color);
+void    draw_2d_map(t_mygame *game);
+void    draw_player(t_mygame *game);
+
+//player
+void    move_player(t_mygame *game, int new_x_pos, int new_y_pos);
+void    update_player_pos(t_mygame *game, int new_x_pos, int new_y_pos);
 #endif
