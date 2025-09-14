@@ -2,7 +2,7 @@
 
 #define TITLE_SIZE 10
 
-void   draw_square(t_myimg *img, int x, int y, int color)
+void   draw_square(t_myimg *img, int x, int y, int color, int size)
 {
     int     i;
     int     j;
@@ -11,13 +11,13 @@ void   draw_square(t_myimg *img, int x, int y, int color)
     char    *dst;
 
     i = 0;
-    while (i < TITLE_SIZE - 1)
+    while (i < size - 1)
     {
         j = 0;
-        while (j < TITLE_SIZE - 1)
+        while (j < size - 1)
         {
-            px = x * TITLE_SIZE + j;
-            py = y * TITLE_SIZE + i;
+            px = x * size + j;
+            py = y * size + i;
             dst = img->addr + (py * img->line_len + px * (img->bpp / 8));
             *(unsigned int*)dst = color;
             j++;
@@ -28,14 +28,26 @@ void   draw_square(t_myimg *img, int x, int y, int color)
 
 void   draw_player(t_mygame *game)
 {
-    int x;
-    int y;
-    int color;
-    
-    x = (int)game->player.x;
-    y = (int)game->player.y;
-    color = 0xFF0000; // czerwony dla gracza
-    draw_square(&game->img, x, y, color);
+    //int x;
+    //int y;
+    //int color;
+
+    int px = (int)(game->player.x * TITLE_SIZE - 2);
+    int py = (int)(game->player.y * TITLE_SIZE - 2);
+    //color = 0xFF0000; // czerwony dla gracza
+    //draw_square(&game->img, x, y, color, 4);
+    // for testing
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+        {
+            int x = px + j;
+            int y = py + i;
+            if (x >= 0 && x < game->map.width * TITLE_SIZE && y >= 0 && y < game->map.height * TITLE_SIZE) {
+                char *dst = game->img.addr + (y * game->img.line_len + x * (game->img.bpp / 8));
+                *(unsigned int*)dst = 0xFF0000;
+            }
+        }
+    // end testing
 }
 
 void   draw_2d_map(t_mygame *game)
@@ -57,10 +69,10 @@ void   draw_2d_map(t_mygame *game)
             else if (cell == '0')
                 color = 0xCCCCCC; // szary dla przestrzeni
             else if (cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
-                color = 0xCCCCCC; // czerwony dla gracza
+                color = 0xCCCCCC;
             else
                 color = 0xFF00FF; // magenta dla innych znaków (błąd)
-            draw_square(&game->img, x, y, color);
+            draw_square(&game->img, x, y, color, TITLE_SIZE);
             x++;
         }
         y++;

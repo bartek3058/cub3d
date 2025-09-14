@@ -27,6 +27,7 @@ typedef struct s_myplayer
     double      dir_y;      // wektor kierunku Y
     double      plane_x;    // wektor kamery X (FOV)
     double      plane_y;    // wektor kamery Y
+    int         MOVE_SPEED;
 }   t_myplayer;
 
 typedef struct s_myimg
@@ -83,6 +84,11 @@ typedef struct s_mygame
     t_mytextures  textures;   // tekstury
     t_myimg       img;        // bufor obrazu
     t_myconfig    config;     // kolory, ścieżki tekstur
+    int          key_w;   // W
+    int          key_s;   // S
+    int          key_a;   // A
+    int          key_d;   // D
+    int          key_esc; // ESC
 }   t_mygame;
 
 
@@ -119,6 +125,8 @@ void init_player_from_map(t_mygame *game);
 //hooks
 int	close_hook(t_mygame *game);
 int	keys_hook(int keycode, t_mygame *game);
+int key_press(int keycode, t_mygame *game);
+int key_release(int keycode, t_mygame *game);
 
 //cleanup
 void    cleanup_display(t_mygame *game);
@@ -128,7 +136,7 @@ void    cleanup_all(t_mygame *game);
 int	ft_strcmp(const char *s1, const char *s2);
 
 //2d_map
-void    draw_square(t_myimg *img, int x, int y, int color);
+void    draw_square(t_myimg *img, int x, int y, int color, int size);
 void    draw_2d_map(t_mygame *game);
 void    draw_player(t_mygame *game);
 

@@ -25,6 +25,14 @@ void allocate_map_grid(t_mygame *game)
 int   game_loop(void *param)
 {
     t_mygame *game = (t_mygame *)param;
+    
+    // Clear image buffer (fill with black or background color)
+    int img_size = game->map.width * 20 * game->map.height * 20 * (game->img.bpp / 8);
+    memset(game->img.addr, 0, img_size);
+    if (game->key_w) game->player.y -= game->player.MOVE_SPEED;
+    if (game->key_s) game->player.y += game->player.MOVE_SPEED;
+    if (game->key_a) game->player.x -= game->player.MOVE_SPEED;
+    if (game->key_d) game->player.x += game->player.MOVE_SPEED;
 
     draw_2d_map(game); //Rysuje mapę 2D do bufora obrazu
     draw_player(game);
@@ -73,8 +81,9 @@ int main (int argc, char **argv)
     game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
     
     //mlx_pixel_put(game.mlx, game.win, 250, 250, 0xFFFFFF);
+    mlx_hook(game.win, 2, 1L<<0, key_press, &game);    // Key press
+    mlx_hook(game.win, 3, 1L<<1, key_release, &game);  // Key release
     mlx_hook(game.win, 17, 0, close_hook, &game);
-    mlx_key_hook(game.win, keys_hook, &game);
     mlx_loop_hook(game.mlx, game_loop, &game);
     mlx_loop(game.mlx);
 	cleanup_all(&game);
