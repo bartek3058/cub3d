@@ -4,12 +4,12 @@ char *test_map[10] = {
     "1111111111",
     "1000000001",
     "1000000001",
+    "1001100001",
+    "1001100001",
+    "1000000001",
+    "100000N001",
     "1000000001",
     "1000000001",
-    "1000000001",
-    "1000000001",
-    "1000000001",
-    "1000000N01",
     "1111111111"
 };
 
@@ -25,9 +25,9 @@ void allocate_map_grid(t_mygame *game)
 int   game_loop(void *param)
 {
     t_mygame *game = (t_mygame *)param;
-    
+
     // Clear image buffer (fill with black or background color)
-    int img_size = game->map.width * 20 * game->map.height * 20 * (game->img.bpp / 8);
+    int img_size = game->map.width * 10 * game->map.height * 10 * (game->img.bpp / 8);
     memset(game->img.addr, 0, img_size);
     if (game->key_w) game->player.y -= game->player.MOVE_SPEED;
     if (game->key_s) game->player.y += game->player.MOVE_SPEED;
@@ -50,6 +50,13 @@ int main (int argc, char **argv)
 {
     t_mygame game;
 
+	// Reset keys pressed state
+	game.key_w = 0;
+	game.key_s = 0;
+	game.key_a = 0;
+	game.key_d = 0;
+	game.key_esc = 0;
+	
     // FOR TESTING PURPOSES
     // For testing: set up a simple 10x10 map
     game.map.grid = test_map;
@@ -70,16 +77,16 @@ int main (int argc, char **argv)
     //check_map_name(argc, argv);
     //parser(argv, &game);
 
-    
+
     if (!init_window(&game))
     {
         //cleanup_map(&game);     // trzeba będzie dopisać
         cleanup_display(&game);
         exit(EXIT_FAILURE);
     }
-    game.img.img = mlx_new_image(game.mlx, 500, 500);
+    game.img.img = mlx_new_image(game.mlx, 1024, 768);
     game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
-    
+
     //mlx_pixel_put(game.mlx, game.win, 250, 250, 0xFFFFFF);
     mlx_hook(game.win, 2, 1L<<0, key_press, &game);    // Key press
     mlx_hook(game.win, 3, 1L<<1, key_release, &game);  // Key release
