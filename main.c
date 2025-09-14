@@ -33,7 +33,7 @@ int   game_loop(void *param)
     if (game->key_s) game->player.y += game->player.MOVE_SPEED;
     if (game->key_a) game->player.x -= game->player.MOVE_SPEED;
     if (game->key_d) game->player.x += game->player.MOVE_SPEED;
-
+    printf("Player pos: %f %f\n", game->player.x, game->player.y);
     draw_2d_map(game); //Rysuje mapę 2D do bufora obrazu
     draw_player(game);
     mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0); // Aktualizuje okno

@@ -27,7 +27,7 @@ typedef struct s_myplayer
     double      dir_y;      // wektor kierunku Y
     double      plane_x;    // wektor kamery X (FOV)
     double      plane_y;    // wektor kamery Y
-    int         MOVE_SPEED;
+    double      MOVE_SPEED;
 }   t_myplayer;
 
 typedef struct s_myimg
@@ -123,10 +123,9 @@ int    init_window(t_mygame *game);
 void init_player_from_map(t_mygame *game);
 
 //hooks
-int	close_hook(t_mygame *game);
-int	keys_hook(int keycode, t_mygame *game);
-int key_press(int keycode, t_mygame *game);
-int key_release(int keycode, t_mygame *game);
+int	close_hook(void *param);
+int key_press(int keycode, void *param);
+int key_release(int keycode, void *param);
 
 //cleanup
 void    cleanup_display(t_mygame *game);
