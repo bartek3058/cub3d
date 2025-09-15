@@ -25,13 +25,13 @@ int game_loop(t_mygame *game)
 {
 	// Update player position based on keys pressed
 	if (game->key_w)
-		game->player.y -= game->player.move_speed;
+		move_player(game, game->player.x, game->player.y - game->player.move_speed);
 	if (game->key_s)
-		game->player.y += game->player.move_speed;
+		move_player(game, game->player.x, game->player.y + game->player.move_speed);
 	if (game->key_a)
-		game->player.x -= game->player.move_speed;
+		move_player(game, game->player.x - game->player.move_speed, game->player.y);
 	if (game->key_d)
-		game->player.x += game->player.move_speed;
+		move_player(game, game->player.x + game->player.move_speed, game->player.y);
 	int img_size = game->img.line_len * 768;
 	memset(game->img.addr, 0, img_size);
 	draw_2d_map(game); // Rysuje mapę 2D do bufora obrazu

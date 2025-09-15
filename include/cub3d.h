@@ -140,6 +140,6 @@ void	draw_2d_map(t_mygame *game);
 void	draw_player(t_mygame *game);
 
 //player
-void	move_player(t_mygame *game, int new_x_pos, int new_y_pos);
-void	update_player_pos(t_mygame *game, int new_x_pos, int new_y_pos);
+void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);
+void	update_player_pos(t_mygame *game, double new_x_pos, double new_y_pos);
 #endif
