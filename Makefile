@@ -20,9 +20,12 @@ SRCS	=	./main.c\
 			./src/free/free.c\
 			./src/init/init_b.c\
 			./src/init/init.c\
+			./src/init/init_player.c\
 			./src/free/cleanup.c\
 			./src/exec/hooks.c\
+			./src/exec/player.c\
 			./src/utils/utils_b.c\
+			./src/2d/2d_map.c\
 
 OBJS	=	${SRCS:.c=.o}
 
