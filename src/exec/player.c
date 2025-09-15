@@ -16,7 +16,7 @@ void	update_player_pos(t_mygame *game, int new_x_pos, int new_y_pos)
 {
 	game->player.x = new_x_pos;
 	game->player.y = new_y_pos;
-    draw_player(game);
+	draw_player(game);
 }
 
 void	move_player(t_mygame *game, int new_x_pos, int new_y_pos)
