@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/16 09:49:13 by tszymans          #+#    #+#             */
+/*   Updated: 2025/09/16 09:49:13 by tszymans         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/cub3d.h"
 
 char *test_map[10] = {
@@ -23,16 +35,26 @@ void allocate_map_grid(t_mygame *game)
 
 int game_loop(t_mygame *game)
 {
+	int img_size;
+
 	// Update player position based on keys pressed
 	if (game->key_w)
-		move_player(game, game->player.x, game->player.y - game->player.move_speed);
+		move_player(game, game->player.x,
+			game->player.y - game->player.move_speed);
 	if (game->key_s)
-		move_player(game, game->player.x, game->player.y + game->player.move_speed);
+		move_player(game, game->player.x,
+			game->player.y + game->player.move_speed);
 	if (game->key_a)
-		move_player(game, game->player.x - game->player.move_speed, game->player.y);
+		move_player(game, game->player.x - game->player.move_speed,
+			game->player.y);
 	if (game->key_d)
-		move_player(game, game->player.x + game->player.move_speed, game->player.y);
-	int img_size = game->img.line_len * 768;
+		move_player(game, game->player.x + game->player.move_speed,
+			game->player.y);
+	if (game->key_left_arrow)
+		rotate_player(game, -game->player.rot_speed);
+	if (game->key_right_arrow)
+		rotate_player(game, game->player.rot_speed);
+	img_size = game->img.line_len * 768;
 	memset(game->img.addr, 0, img_size);
 	draw_2d_map(game); // Rysuje mapę 2D do bufora obrazu
 	draw_player(game);
@@ -55,6 +77,8 @@ int	main(int argc, char **argv)
 	game.key_s = 0;
 	game.key_a = 0;
 	game.key_d = 0;
+	game.key_left_arrow = 0;
+	game.key_right_arrow = 0;
 	game.key_esc = 0;
 
 	// FOR TESTING PURPOSES

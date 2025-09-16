@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:28:22 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/15 10:42:37 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/16 10:20:38 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_player(t_mygame *game)
 	for (int i = 0; i < nose_length; i++)
 	{
 		int nx = (int)(px + game->player.player_size / 2 + game->player.dir_x * i);
-		int ny = (int)(py + game->player.dir_y * i);
+		int ny = (int)(py + game->player.player_size / 2 + game->player.dir_y * i);
 		if (nx >= 0 && nx < game->map.width * game->map.tile_size && ny >= 0 && ny < game->map.height * game->map.tile_size)
 		{
 			char *dst = game->img.addr + (ny * game->img.line_len + nx * (game->img.bpp / 8));
