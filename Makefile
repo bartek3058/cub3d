@@ -21,6 +21,7 @@ SRCS	=	./main.c\
 			./src/init/init_b.c\
 			./src/init/init.c\
 			./src/init/init_player.c\
+			./src/init/init_t_game.c\
 			./src/free/cleanup.c\
 			./src/exec/hooks.c\
 			./src/exec/player.c\

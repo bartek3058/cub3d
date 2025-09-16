@@ -50,9 +50,10 @@ void	init_player_from_map(t_mygame *game)
 					game->player.dir_y = 0;
 				}
 				game->map.grid[y][x] = '0';			// Remove player marker from map
-				game->player.move_speed = 0.001;	// Set a default move speed
-				game->player.rot_speed = 0.001;		// Set a default rotation speed
+				game->player.move_speed = 0.01;	// Set a default move speed
+				game->player.rot_speed = 0.01;		// Set a default rotation speed
 				game->player.player_size = 5;		// Set player size in pixels
+				game->player.angle = atan2(game->player.dir_y, game->player.dir_x);
 				return ;
 			}
 			x++;
