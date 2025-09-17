@@ -19,21 +19,22 @@ static int	get_map_width(char **lines)
 }
 
 
-void	init_map(t_mygame *game, char **lines)
+void	init_map(t_mygame *game, char **lines, int a)
 {
-	int	i;
+	int i;
 
+	i = 0;
 	game->map.height = 0;
-	while (lines[game->map.height])
+	while (lines[a + game->map.height])
 		game->map.height++;
-	game->map.width = get_map_width(lines);
+	game->map.width = get_map_width(&lines[a]);
 	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!game->map.grid)
 		return ;
-	i = 0;
 	while (i < game->map.height)
 	{
-		game->map.grid[i] = ft_strdup(lines[i]);
+		game->map.grid[i] = ft_strdup(lines[a]);
+		a++;
 		i++;
 	}
 	game->map.grid[i] = NULL;
