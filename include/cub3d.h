@@ -119,7 +119,7 @@ int		is_blank(const char *s);
 
 //init
 void	init_myconfig(t_mygame *game);
-void	init_map(t_mygame *game, char **lines);
+void	init_map(t_mygame *game, char **lines, int a);
 
 //init
 int		init_window(t_mygame *game);

@@ -15,7 +15,7 @@ static int	get_map_width(char **lines)
 			max = len;
 		i++;
 	}
-	return (max);
+	return (max - 1);
 }
 
 

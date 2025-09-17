@@ -28,20 +28,20 @@ static void	cleanup_map(t_mygame *game)
 	game->map.grid = NULL;
 }
 
-// void	cleanup_display(t_mygame *game)
-// {
-// 	if (game->win)
-// 	{
-// 		mlx_destroy_window(game->mlx, game->win);
-// 		game->win = NULL;
-// 	}
-// 	if (game->mlx)
-// 	{
-// 		mlx_destroy_display(game->mlx);
-// 		free(game->mlx);
-// 		game->mlx = NULL;
-// 	}
-// }
+void	cleanup_display(t_mygame *game)
+{
+	if (game->win)
+	{
+		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
+	}
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		game->mlx = NULL;
+	}
+}
 
 void	cleanup_all(t_mygame *game)
 {

@@ -38,8 +38,8 @@ int	main(int argc, char **argv)
 	t_mygame	game;
 	init_game(&game);
 	none(argc, argv);
-	// check_map_name(argc, argv);
-	// parser(argv, &game);
+	check_map_name(argc, argv);
+	parser(argv, &game);
 
 	if (!init_window(&game))
 	{
