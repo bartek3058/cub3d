@@ -6,23 +6,20 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:49:21 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/16 09:50:32 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/17 09:25:14 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	close_hook(void *param)
+int	close_hook(t_mygame *game)
 {
-    t_mygame *game = (t_mygame *)param;
-    mlx_loop_end(game->mlx);
+	mlx_loop_end(game->mlx);
 	return (1);
 }
 
-int key_press(int keycode, void *param)
+int key_press(int keycode, t_mygame *game)
 {
-	t_mygame *game = (t_mygame *)param;
-
 	if (keycode == 119)
 		game->key_w = 1;
 	if (keycode == 115)
@@ -36,14 +33,12 @@ int key_press(int keycode, void *param)
 	if (keycode == 65363)
 		game->key_right_arrow = 1;
 	if (keycode == 65307)
-		mlx_loop_end(game->mlx); // ESC key
+		mlx_loop_end(game->mlx);
 	return (0);
 }
 
-int key_release(int keycode, void *param)
+int	key_release(int keycode, t_mygame *game)
 {
-	t_mygame *game = (t_mygame *)param;
-
 	if (keycode == 119)
 		game->key_w = 0;
 	if (keycode == 115)

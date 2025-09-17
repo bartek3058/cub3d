@@ -129,9 +129,9 @@ void	init_game(t_mygame *game);
 void	init_player_from_map(t_mygame *game);
 
 //hooks
-int		close_hook(void *param);
-int		key_press(int keycode, void *param);
-int		key_release(int keycode, void *param);
+int		close_hook(t_mygame *game);
+int		key_press(int keycode, t_mygame *game);
+int		key_release(int keycode, t_mygame *game);
 
 //cleanup
 void	cleanup_display(t_mygame *game);
