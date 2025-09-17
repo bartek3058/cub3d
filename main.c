@@ -10,6 +10,7 @@ int main (int argc, char **argv)
     {
         //cleanup_map(&game);     // trzeba będzie dopisać
         cleanup_display(&game);
+        cleanup_all(&game);
         exit(EXIT_FAILURE);
     }
     mlx_pixel_put(game.mlx, game.win, 250, 250, 0xFFFFFF);
