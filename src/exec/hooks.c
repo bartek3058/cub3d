@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:49:21 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/17 09:25:14 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/17 09:25:54 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	close_hook(t_mygame *game)
 	return (1);
 }
 
-int key_press(int keycode, t_mygame *game)
+int	key_press(int keycode, t_mygame *game)
 {
 	if (keycode == 119)
 		game->key_w = 1;
