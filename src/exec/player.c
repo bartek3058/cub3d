@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/16 10:17:06 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/17 09:44:07 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ void	rotate_player(t_mygame *game, double angle)
 void	update_player_controls(t_mygame *game)
 {
 	if (game->key_a)
-		rotate_player(game, -game->player.rot_speed);
+		rotate_player(game, -game->player.rot_spd);
 	if (game->key_d)
-		rotate_player(game, game->player.rot_speed);
+		rotate_player(game, game->player.rot_spd);
 	if (game->key_w)
-		move_player(game, game->player.x + game->player.dir_x * game->player.move_speed,
-			game->player.y + game->player.dir_y * game->player.move_speed);
+		move_player(game, game->player.x + game->player.dir_x * game->player.mv_spd,
+			game->player.y + game->player.dir_y * game->player.mv_spd);
 	if (game->key_s)
-		move_player(game, game->player.x - game->player.dir_x * game->player.move_speed,
-			game->player.y - game->player.dir_y * game->player.move_speed);
+		move_player(game, game->player.x - game->player.dir_x * game->player.mv_spd,
+			game->player.y - game->player.dir_y * game->player.mv_spd);
 	// if (game->key_left_arrow)
 	// 	rotate_player(game, -game->player.rot_speed);
 	// if (game->key_right_arrow)

@@ -30,8 +30,8 @@ typedef struct s_myplayer
 	double	angle;		// kąt patrzenia (w radianach)
 	double	plane_x;	// wektor kamery X (FOV)
 	double	plane_y;	// wektor kamery Y
-	double	move_speed;	// prędkość ruchu
-	double	rot_speed;	// prędkość rotacji
+	double	mv_spd;	// prędkość ruchu
+	double	rot_spd;	// prędkość rotacji
 	int		player_size;		// rozmiar gracza (w pikselach)
 }	t_myplayer;
 
