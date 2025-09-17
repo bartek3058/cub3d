@@ -19,7 +19,7 @@ int game_loop(t_mygame *game)
 	// Update player position based on keys pressed
 	update_player_controls(game);
 
-	img_size = game->img.line_len * 768;
+	img_size = game->img.line_len * 512;
 	memset(game->img.addr, 0, img_size);
 	draw_2d_map(game); // Rysuje mapę 2D do bufora obrazu
 	draw_player(game);
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	init_player_from_map(&game);
-	game.img.img = mlx_new_image(game.mlx, 1024, 768);
+	game.img.img = mlx_new_image(game.mlx, 1024, 512);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
