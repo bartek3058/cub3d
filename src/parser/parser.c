@@ -9,16 +9,16 @@ void    parser(char **argv, t_mygame *game)
     map_start = parse_config(lines, game);
     init_map(game, lines, map_start);
     parse_map(game);
-    // printf("wysokość %d\n",game->map.height);
-    // printf("szerokosc %d\n",game->map.width);
-    // int i;
-    // i = 0;
-    // while (i < game->map.height)
-    // {
-    //     printf("%s\n", game->map.grid[i]);
-    //     i++;
-    // }
-    // free_split(lines);
+    printf("wysokość %d\n",game->map.height);
+    printf("szerokosc %d\n",game->map.width);
+    int i;
+    i = 0;
+    while (i < game->map.height)
+    {
+        printf("%s\n", game->map.grid[i]);
+        i++;
+    }
+    free_split(lines);
 }
 static int is_player_char(char c)
 {
