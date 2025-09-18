@@ -25,7 +25,7 @@ void	init_map(t_mygame *game, char **lines, int a)
 
 	i = 0;
 	game->map.height = 0;
-	while (lines[a + game->map.height])
+	while (lines[a + game->map.height] && !is_blank(lines[a + game->map.height]))
 		game->map.height++;
 	game->map.width = get_map_width(&lines[a]);
 	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));

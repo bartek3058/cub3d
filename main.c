@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 	if (!init_window(&game))
 	{
 		// cleanup_map(&game);     // trzeba będzie dopisać
-		cleanup_display(&game);
+		// cleanup_display(&game);
 		cleanup_all(&game);
 		exit(EXIT_FAILURE);
 	}
