@@ -48,7 +48,8 @@ int	main(int argc, char **argv)
 		cleanup_all(&game);
 		exit(EXIT_FAILURE);
 	}
-	init_player_from_map(&game);
+	//init_player_from_map(&game);
+	init_player(&game);
 	game.img.img = mlx_new_image(game.mlx, 1024, 512);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);

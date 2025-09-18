@@ -127,6 +127,7 @@ void	init_game(t_mygame *game);
 
 //init player
 void	init_player_from_map(t_mygame *game);
+void	init_player(t_mygame *game);
 
 //hooks
 int		close_hook(t_mygame *game);
