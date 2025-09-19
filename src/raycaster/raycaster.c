@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 09:55:05 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/19 10:58:27 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:02:38 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	raycaster(t_myray *ray, t_mygame *game)
 		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 		initial_side_dist(ray, game);
+		DDA(ray, game);
 		x++;
 	}
 }

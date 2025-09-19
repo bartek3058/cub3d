@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:40:40 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/19 09:51:51 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:03:09 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	init_game(t_mygame *game)
 	// game->map.grid = test_map;
 	// game->map.width = 10;
 	// game->map.height = 10;
-	game->screen_width = 512;  // Set desired screen width
-	game->screen_height = 512; // Set desired screen height
+	game->scr_width = 1024;  // Set desired screen width
+	game->scr_height = 512; // Set desired screen height
 
 	allocate_map_grid(game);
 	game->map.tile_size = 10; // Each tile is 10x10 pixels
