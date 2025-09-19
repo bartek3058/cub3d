@@ -36,6 +36,7 @@ static void	none(int argc, char **argv) // ignorowanie warningów o nieużywanyc
 int	main(int argc, char **argv)
 {
 	t_mygame	game;
+	
 	init_game(&game);
 	none(argc, argv);
 	check_map_name(argc, argv);
@@ -50,7 +51,7 @@ int	main(int argc, char **argv)
 	}
 	//init_player_from_map(&game);
 	init_player(&game);
-	game.img.img = mlx_new_image(game.mlx, 1024, 512);
+	game.img.img = mlx_new_image(game.mlx, game.screen_width, game.screen_height);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
