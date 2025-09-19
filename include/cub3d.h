@@ -64,7 +64,7 @@ typedef struct s_myconfig
 
 typedef struct s_myray
 {
-	double	camera_x;
+	double	cam_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
 	int		map_x;
@@ -96,6 +96,8 @@ typedef struct s_mygame
 	int				key_left_arrow;
 	int				key_right_arrow;
 	int				key_esc;	// ESC
+	int				scr_width;	// szerokość okna
+	int				scr_height;	// wysokość okna
 }	t_mygame;
 
 // Functions
@@ -126,7 +128,6 @@ int		init_window(t_mygame *game);
 void	init_game(t_mygame *game);
 
 //init player
-void	init_player_from_map(t_mygame *game);
 void	init_player(t_mygame *game);
 
 //hooks
@@ -150,4 +151,7 @@ void	draw_player(t_mygame *game);
 void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);
 void	rotate_player(t_mygame *game, double angle);
 void	update_player_controls(t_mygame *game);
+
+//raycaster
+void	raycaster(t_myray *ray, t_mygame *game);
 #endif
