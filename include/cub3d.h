@@ -78,6 +78,9 @@ typedef struct s_myray
 	int		step_y;
 	int		hit;
 	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 }	t_myray;
 
 typedef struct s_mygame
@@ -89,6 +92,7 @@ typedef struct s_mygame
 	t_mytextures	textures;	// tekstury
 	t_myimg			img;		// bufor obrazu
 	t_myconfig		config;		// kolory, ścieżki tekstur
+	t_myray			ray;		// dane raycastera
 	int				key_w;		// W
 	int				key_s;		// S
 	int				key_a;		// A
@@ -146,6 +150,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	draw_square(t_myimg *img, int x, int y, int color, int size);
 void	draw_2d_map(t_mygame *game);
 void	draw_player(t_mygame *game);
+void	draw_pixel_to_buffer(t_myimg *img, int x, int y, int color);
 
 //player
 void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);

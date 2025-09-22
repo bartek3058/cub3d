@@ -25,6 +25,7 @@ static void	cleanup_map(t_mygame *game)
 		i++;
 	}
 	// free_split(game->map.grid);
+	free(game->map.grid); // <--- ADD THIS LINE
 	game->map.grid = NULL;
 }
 

@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-static int	get_map_width(char **lines)
+static int get_map_width(char **lines)
 {
 	int i;
 	int len;
@@ -18,8 +18,7 @@ static int	get_map_width(char **lines)
 	return (max - 1);
 }
 
-
-void	init_map(t_mygame *game, char **lines, int a)
+void init_map(t_mygame *game, char **lines, int a)
 {
 	int i;
 
@@ -28,9 +27,10 @@ void	init_map(t_mygame *game, char **lines, int a)
 	while (lines[a + game->map.height] && !is_blank(lines[a + game->map.height]))
 		game->map.height++;
 	game->map.width = get_map_width(&lines[a]);
+	printf("Map dimensions: width=%d, height=%d\n", game->map.width, game->map.height);
 	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!game->map.grid)
-		return ;
+		return;
 	while (i < game->map.height)
 	{
 		game->map.grid[i] = ft_strdup(lines[a]);
@@ -40,13 +40,12 @@ void	init_map(t_mygame *game, char **lines, int a)
 	game->map.grid[i] = NULL;
 }
 
-
-void    init_myconfig(t_mygame *game)
+void init_myconfig(t_mygame *game)
 {
-    game->config.tex_no = NULL;
-    game->config.tex_so = NULL;
-    game->config.tex_we = NULL;
-    game->config.tex_ea = NULL;
-    game->config.floor_color = -1; // -1 oznacza brak koloru
-    game->config.ceil_color = -1;
+	game->config.tex_no = NULL;
+	game->config.tex_so = NULL;
+	game->config.tex_we = NULL;
+	game->config.tex_ea = NULL;
+	game->config.floor_color = -1; // -1 oznacza brak koloru
+	game->config.ceil_color = -1;
 }

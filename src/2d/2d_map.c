@@ -6,19 +6,26 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:28:22 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/16 10:20:38 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/22 10:20:26 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+void	draw_pixel_to_buffer(t_myimg *img, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0)
+		return ;
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
 void draw_square(t_myimg *img, int x, int y, int color, int size)
 {
 	int		i;
 	int		j;
-	int		px;
-	int		py;
-	char	*dst;
 
 	i = 0;
 	while (i < size - 1)
@@ -26,11 +33,30 @@ void draw_square(t_myimg *img, int x, int y, int color, int size)
 		j = 0;
 		while (j < size - 1)
 		{
-			px = x * size + j;
-			py = y * size + i;
-			dst = img->addr + (py * img->line_len + px * (img->bpp / 8));
-			*(unsigned int *)dst = color;
+			draw_pixel_to_buffer(img, x * size + j, y * size + i, color);
 			j++;
+		}
+		i++;
+	}
+}
+
+static void	draw_nose(t_mygame *game, t_myplayer *player, int px, int py)
+{
+	int	nose_length;
+	int	nx;
+	int	ny;
+	int	i;
+
+	nose_length = player->player_size;
+	i = 0;
+	while (i < nose_length)
+	{
+		nx = (int)(px + player->player_size / 2 + player->dir_x * i);
+		ny = (int)(py + player->player_size / 2 + player->dir_y * i);
+		if (nx >= 0 && nx < game->map.width * game->map.tile_size
+			&& ny >= 0 && ny < game->map.height * game->map.tile_size)
+		{
+			draw_pixel_to_buffer(&game->img, nx, ny, 0x000000);
 		}
 		i++;
 	}
@@ -56,19 +82,7 @@ void	draw_player(t_mygame *game)
 				*(unsigned int *)dst = 0xFF0000;
 			}
 		}
-	// Draw direction line ("nose")
-	int nose_length = game->player.player_size; // length of the nose
-
-	for (int i = 0; i < nose_length; i++)
-	{
-		int nx = (int)(px + game->player.player_size / 2 + game->player.dir_x * i);
-		int ny = (int)(py + game->player.player_size / 2 + game->player.dir_y * i);
-		if (nx >= 0 && nx < game->map.width * game->map.tile_size && ny >= 0 && ny < game->map.height * game->map.tile_size)
-		{
-			char *dst = game->img.addr + (ny * game->img.line_len + nx * (game->img.bpp / 8));
-			*(unsigned int *)dst = 0x000000; // black
-		}
-	}
+	draw_nose(game, &game->player, px, py);
 	// end testing
 }
 
