@@ -116,10 +116,12 @@ int		parse_map(t_mygame *game);
 void	set_player_direction(t_myplayer *player, char dir);
 int		parse_config(char **lines, t_mygame *game);
 int		is_blank(const char *s);
+void    draw_background(t_mygame *game);
 
 //init
 void	init_myconfig(t_mygame *game);
 void	init_map(t_mygame *game, char **lines, int a);
+int init_image(t_mygame *game, int width, int height);
 
 //init
 int		init_window(t_mygame *game);
