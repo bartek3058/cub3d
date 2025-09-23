@@ -10,8 +10,8 @@ void    parser(char **argv, t_mygame *game)
     init_map(game, lines, map_start);
     free_split(lines);
     parse_map(game);
-    draw_background(game);
-
+    // draw_background(game);
+    
     // printf("wysokość %d\n",game->map.height);
     // printf("szerokosc %d\n",game->map.width);
     // int i;

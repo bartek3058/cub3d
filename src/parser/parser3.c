@@ -38,14 +38,14 @@ static int	parse_color(char *str)
 	int		g;
 	int		b;
 	int		color;
-
+	
 	rgb = ft_split(str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
 		return (-1);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
-	color = r * 65536 + g * 256 + b; 
+	color = (r << 16) | (g << 8) | b;
 	free_split(rgb);
 	return (color);
 }
@@ -70,6 +70,8 @@ static void	save_config_line(t_mygame *game, char *line)
 	else if (!ft_strcmp(parts[0], "C"))
 		game->config.ceil_color = parse_color(parts[1]);
 	free_split(parts);
+	printf("kolor sufitu: %d\n", game->config.ceil_color);
+	printf("kolor podłogi: %d\n", game->config.floor_color);
 }
 
 int parse_config(char **lines, t_mygame *game)

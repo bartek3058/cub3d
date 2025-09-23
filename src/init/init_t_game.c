@@ -52,6 +52,8 @@ void	init_game(t_mygame *game)
 
 	allocate_map_grid(game);
 	game->map.tile_size = 10; // Each tile is 10x10 pixels
+	game->scr_height = 1024;
+	game->scr_width = 512;
 
 
 	// END FOR TESTING PURPOSES
