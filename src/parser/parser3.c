@@ -70,8 +70,8 @@ static void	save_config_line(t_mygame *game, char *line)
 	else if (!ft_strcmp(parts[0], "C"))
 		game->config.ceil_color = parse_color(parts[1]);
 	free_split(parts);
-	printf("kolor sufitu: %d\n", game->config.ceil_color);
-	printf("kolor podłogi: %d\n", game->config.floor_color);
+	// printf("kolor sufitu: %d\n", game->config.ceil_color);
+	// printf("kolor podłogi: %d\n", game->config.floor_color);
 }
 
 int parse_config(char **lines, t_mygame *game)
