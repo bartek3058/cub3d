@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 09:55:05 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/22 10:04:31 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:40:59 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ static void	draw_line(t_myray *ray, t_mygame *game, int x)
 		ray->draw_end = game->scr_height - 1;
 	if (ray->side == 1)
 	{
-		color = color / 2; // ciemniejszy odcień dla ścian pionowych
+		//color = color / 2; // ciemniejszy odcień dla ścian pionowych
+		int r = ((color >> 16) & 0xFF) * 0.7;
+		int g = ((color >> 8) & 0xFF) * 0.7;
+		int b = (color & 0xFF) * 0.7;
+		color = (r << 16) | (g << 8) | b;
 	}
 	// Rysowanie pionowej linii
 	y = ray->draw_start;
@@ -107,6 +111,7 @@ void	raycaster(t_myray *ray, t_mygame *game)
 		ray->map_y = (int)game->player.y;
 		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+		ray->hit = 0;
 		initial_side_dist(ray, game);
 		dda(ray, game);
 		if (ray->side == 0)
