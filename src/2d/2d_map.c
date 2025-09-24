@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:28:22 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/22 10:20:26 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/24 09:22:36 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ void	draw_player(t_mygame *game)
 	int px;
 	int py;
 
-	px = (int)(game->player.x * game->map.tile_size - game->player.player_size / 2 - 1);
-	py = (int)(game->player.y * game->map.tile_size - game->player.player_size / 2 - 1);
+	px = (int)(game->player.x * game->map.tile_size
+			- game->player.player_size / 2 - 1);
+	py = (int)(game->player.y * game->map.tile_size
+			- game->player.player_size / 2 - 1);
 	for (int i = 0; i < game->player.player_size; i++)
 		for (int j = 0; j < game->player.player_size; j++)
 		{

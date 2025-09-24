@@ -159,4 +159,5 @@ void	update_player_controls(t_mygame *game);
 
 //raycaster
 void	raycaster(t_myray *ray, t_mygame *game);
+int		darker_color(int *color, double factor);
 #endif
