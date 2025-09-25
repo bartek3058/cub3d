@@ -13,6 +13,7 @@ MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 SRCS	=	./main.c\
 			./src/map/check_map.c\
+			./src/map/background.c\
 			./src/parser/parser.c\
 			./src/parser/parser2.c\
 			./src/parser/parser3.c\

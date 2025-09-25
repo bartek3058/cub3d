@@ -42,7 +42,6 @@ int	main(int argc, char **argv)
 	none(argc, argv);
 	check_map_name(argc, argv);
 	parser(argv, &game);
-
 	if (!init_window(&game))
 	{
 		// cleanup_map(&game);     // trzeba będzie dopisać
@@ -54,6 +53,9 @@ int	main(int argc, char **argv)
 	init_player(&game);
 	game.img.img = mlx_new_image(game.mlx, game.scr_width, game.scr_height);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
+	// game.config.ceil_color = 0xFF0000;
+	// game.config.floor_color = 0xFF0000;
+	// draw_background(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win, 17, 0, close_hook, &game);

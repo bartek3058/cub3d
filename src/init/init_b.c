@@ -1,6 +1,19 @@
 #include "../../include/cub3d.h"
 
-static int get_map_width(char **lines)
+int init_image(t_mygame *game, int width, int height)
+{
+    game->img.img = mlx_new_image(game->mlx, width, height);
+    if (!game->img.img)
+        return (1); // błąd przy tworzeniu obrazu
+
+    game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_len, &game->img.endian);
+    if (!game->img.addr)
+        return (1); // błąd przy pobieraniu danych obrazu
+
+    return (0); // sukces
+}
+
+static int	get_map_width(char **lines)
 {
 	int i;
 	int len;
