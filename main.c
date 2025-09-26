@@ -21,6 +21,7 @@ int game_loop(t_mygame *game)
 
 	img_size = game->img.line_len * game->scr_height;
 	memset(game->img.addr, 0, img_size);
+	draw_background(game);
 	raycaster(&game->ray, game); // Rysuje widok 3D do bufora obrazu
 	draw_2d_map(game); // Rysuje mapę 2D do bufora obrazu
 	draw_player(game);
