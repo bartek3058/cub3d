@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_player.c                                      :+:      :+:    :+:   */
+/*   init_t_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:40:40 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/16 10:15:56 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/26 08:41:10 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,22 @@ void	init_game(t_mygame *game)
 	game->key_left_arrow = 0;
 	game->key_right_arrow = 0;
 	game->key_esc = 0;
+	game->map.grid = NULL;
+	game->map.width = 0;
+	game->map.height = 0;
 
 	// FOR TESTING PURPOSES
 	// For testing: set up a simple 10x10 map
-	game->map.grid = test_map;
-	game->map.width = 10;
-	game->map.height = 10;
+	// game->map.grid = test_map;
+	// game->map.width = 10;
+	// game->map.height = 10;
+	game->scr_width = 1024;  // Set desired screen width
+	game->scr_height = 512; // Set desired screen height
 
 	allocate_map_grid(game);
 	game->map.tile_size = 10; // Each tile is 10x10 pixels
-	game->scr_height = 1024;
-	game->scr_width = 512;
+	game->scr_height = 512;
+	game->scr_width = 1024;
 
 
 	// END FOR TESTING PURPOSES

@@ -28,6 +28,7 @@ SRCS	=	./main.c\
 			./src/exec/player.c\
 			./src/utils/utils_b.c\
 			./src/2d/2d_map.c\
+			./src/raycaster/raycaster.c
 
 OBJS	=	${SRCS:.c=.o}
 

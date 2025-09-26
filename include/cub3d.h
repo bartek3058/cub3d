@@ -64,7 +64,7 @@ typedef struct s_myconfig
 
 typedef struct s_myray
 {
-	double	camera_x;
+	double	cam_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
 	int		map_x;
@@ -78,6 +78,9 @@ typedef struct s_myray
 	int		step_y;
 	int		hit;
 	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 }	t_myray;
 
 typedef struct s_mygame
@@ -89,6 +92,7 @@ typedef struct s_mygame
 	t_mytextures	textures;	// tekstury
 	t_myimg			img;		// bufor obrazu
 	t_myconfig		config;		// kolory, ścieżki tekstur
+	t_myray			ray;		// dane raycastera
 	int				key_w;		// W
 	int				key_s;		// S
 	int				key_a;		// A
@@ -96,8 +100,8 @@ typedef struct s_mygame
 	int				key_left_arrow;
 	int				key_right_arrow;
 	int				key_esc;	// ESC
-	int				scr_height;
-	int				scr_width;
+	int				scr_width;	// szerokość okna
+	int				scr_height;	// wysokość okna
 }	t_mygame;
 
 // Functions
@@ -132,7 +136,6 @@ int		init_window(t_mygame *game);
 void	init_game(t_mygame *game);
 
 //init player
-void	init_player_from_map(t_mygame *game);
 void	init_player(t_mygame *game);
 
 //hooks
@@ -152,9 +155,14 @@ int		is_blank(const char *s);
 void	draw_square(t_myimg *img, int x, int y, int color, int size);
 void	draw_2d_map(t_mygame *game);
 void	draw_player(t_mygame *game);
+void	draw_pixel_to_buffer(t_myimg *img, int x, int y, int color);
 
 //player
 void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);
 void	rotate_player(t_mygame *game, double angle);
 void	update_player_controls(t_mygame *game);
+
+//raycaster
+void	raycaster(t_myray *ray, t_mygame *game);
+int		darker_color(int *color, double factor);
 #endif

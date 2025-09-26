@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/17 09:44:07 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/22 10:45:33 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ void	rotate_player(t_mygame *game, double angle)
 		game->player.angle += 2 * 3.14159;
 	printf("Rotated player to dir: (%.2f, %.2f); angle: %.2f\n",
 		game->player.dir_x, game->player.dir_y, game->player.angle);
+	printf("Player plane to: (%.2f, %.2f)\n",
+		game->player.plane_x, game->player.plane_y);
+
 }
 
 void	update_player_controls(t_mygame *game)
