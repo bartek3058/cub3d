@@ -34,12 +34,22 @@ static void set_direction_west(t_myplayer *player)
 
 void set_player_direction(t_myplayer *player, char dir)
 {
-    if (dir == 'N')
-        set_direction_north(player);
-    else if (dir == 'S')
-        set_direction_south(player);
-    else if (dir == 'E')
-        set_direction_east(player);
-    else if (dir == 'W')
-        set_direction_west(player);
+	if (dir == 'N')
+	{
+		set_direction_north(player);
+	}
+	else if (dir == 'S')
+	{
+		set_direction_south(player);
+	}
+	else if (dir == 'E')
+	{
+		set_direction_east(player);
+	}
+	else if (dir == 'W')
+	{
+		set_direction_west(player);
+	}
+	player->mv_dir_x = player->dir_x;
+	player->mv_dir_y = player->dir_y;
 }

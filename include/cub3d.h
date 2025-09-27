@@ -27,6 +27,8 @@ typedef struct s_myplayer
 	double	y;			// pozycja Y
 	double	dir_x;		// wektor kierunku X
 	double	dir_y;		// wektor kierunku Y
+	double	mv_dir_x; // wektor ruchu X
+	double	mv_dir_y; // wektor ruchu Y
 	double	angle;		// kąt patrzenia (w radianach)
 	double	plane_x;	// wektor kamery X (FOV)
 	double	plane_y;	// wektor kamery Y
@@ -159,7 +161,8 @@ void	draw_pixel_to_buffer(t_myimg *img, int x, int y, int color);
 
 //player
 void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);
-void	rotate_player(t_mygame *game, double angle);
+void	rotate_player(t_mygame *game);
+void	rotate_camera(t_mygame *game, double angle);
 void	update_player_controls(t_mygame *game);
 
 //raycaster

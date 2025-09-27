@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:28:22 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/24 09:22:36 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:14:34 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,28 @@ static void	draw_nose(t_mygame *game, t_myplayer *player, int px, int py)
 	}
 }
 
+static void	draw_mv_dir(t_mygame *game, t_myplayer *player, int px, int py)
+{
+	int	mv_length;
+	int	nx;
+	int	ny;
+	int	i;
+
+	mv_length = player->player_size;
+	i = 0;
+	while (i < mv_length)
+	{
+		nx = (int)(px + player->player_size / 2 + player->mv_dir_x * i);
+		ny = (int)(py + player->player_size / 2 + player->mv_dir_y * i);
+		if (nx >= 0 && nx < game->map.width * game->map.tile_size
+			&& ny >= 0 && ny < game->map.height * game->map.tile_size)
+		{
+			draw_pixel_to_buffer(&game->img, nx, ny, 0xFFFF00);
+		}
+		i++;
+	}
+}
+
 void	draw_player(t_mygame *game)
 {
 	int x;
@@ -85,6 +107,7 @@ void	draw_player(t_mygame *game)
 			}
 		}
 	draw_nose(game, &game->player, px, py);
+	draw_mv_dir(game, &game->player, px, py);
 	// end testing
 }
 

@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/22 10:45:33 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:01:51 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,19 @@ void	move_player(t_mygame *game, double new_x_pos, double new_y_pos)
 	draw_player(game);
 }
 
-void	rotate_player(t_mygame *game, double angle)
+void	rotate_player(t_mygame *game)
+{
+	game->player.mv_dir_x = game->player.dir_x;
+	game->player.mv_dir_y = game->player.dir_y;
+	printf("Rotated player to dir: (%.2f, %.2f); angle: %.2f\n",
+		game->player.dir_x, game->player.dir_y, game->player.angle);
+	printf("Player plane to: (%.2f, %.2f)\n",
+		game->player.plane_x, game->player.plane_y);
+	printf("Player move to: (%.2f, %.2f)\n",
+		game->player.mv_dir_x, game->player.mv_dir_y);
+}
+
+void	rotate_camera(t_mygame *game, double angle)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -59,23 +71,33 @@ void	rotate_player(t_mygame *game, double angle)
 		game->player.dir_x, game->player.dir_y, game->player.angle);
 	printf("Player plane to: (%.2f, %.2f)\n",
 		game->player.plane_x, game->player.plane_y);
+	printf("Player move to: (%.2f, %.2f)\n",
+		game->player.mv_dir_x, game->player.mv_dir_y);
 
 }
 
 void	update_player_controls(t_mygame *game)
 {
 	if (game->key_a)
-		rotate_player(game, -game->player.rot_spd);
+	{
+		rotate_camera(game, -game->player.rot_spd);
+		rotate_player(game);
+	}
 	if (game->key_d)
-		rotate_player(game, game->player.rot_spd);
+	{
+		rotate_camera(game, game->player.rot_spd);
+		rotate_player(game);
+	}
 	if (game->key_w)
-		move_player(game, game->player.x + game->player.dir_x * game->player.mv_spd,
-			game->player.y + game->player.dir_y * game->player.mv_spd);
+		move_player(
+			game, game->player.x + game->player.mv_dir_x * game->player.mv_spd,
+			game->player.y + game->player.mv_dir_y * game->player.mv_spd);
 	if (game->key_s)
-		move_player(game, game->player.x - game->player.dir_x * game->player.mv_spd,
-			game->player.y - game->player.dir_y * game->player.mv_spd);
-	// if (game->key_left_arrow)
-	// 	rotate_player(game, -game->player.rot_speed);
-	// if (game->key_right_arrow)
-	// 	rotate_player(game, game->player.rot_speed);
+		move_player(
+			game, game->player.x - game->player.mv_dir_x * game->player.mv_spd,
+			game->player.y - game->player.mv_dir_y * game->player.mv_spd);
+	if (game->key_left_arrow)
+		rotate_camera(game, -game->player.rot_spd);
+	if (game->key_right_arrow)
+		rotate_camera(game, game->player.rot_spd);
 }
