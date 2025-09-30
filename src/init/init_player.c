@@ -21,7 +21,7 @@ void	init_player(t_mygame *game)
 	// game->player.plane_x = 0;	// 2D raycaster camera plane
 	// game->player.plane_y = 0.66;	// FOV 66 degrees
 	game->player.mv_spd = 0.01;	// Movement speed
-	game->player.rot_spd = 0.002;	// Rotation speed
+	game->player.rot_spd = 0.01;	// Rotation speed
 	game->player.player_size = 5;	// Player size in pixels
 	game->player.angle = atan2(game->player.dir_y, game->player.dir_x);
 }

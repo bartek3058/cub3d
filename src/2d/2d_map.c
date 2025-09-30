@@ -140,8 +140,26 @@ void	draw_2d_map(t_mygame *game)
 	}
 }
 
-// void   draw_all(t_mygame *game)
-// {
-//     draw_2d_map(game);
-//     draw_player(game);
-// }
+
+void draw_crosshair(t_mygame *game)
+{
+	int dx;
+	int dy;
+	int ch_size;
+	int color;
+	
+	color = 0xFFFFFF; // white
+	ch_size = 10; // half size of crosshair
+	dx = -ch_size/2;
+	while (dx <= ch_size/2)
+	{
+		draw_pixel_to_buffer(&game->img, game->scr_width / 2 + dx, game->scr_height / 2, color);
+		dx++;
+	}
+	dy = -ch_size/2;
+	while (dy <= ch_size/2)
+	{
+		draw_pixel_to_buffer(&game->img, game->scr_width / 2, game->scr_height / 2 + dy, color);
+		dy++;
+	}
+}

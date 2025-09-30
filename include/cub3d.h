@@ -161,6 +161,7 @@ void	draw_square(t_myimg *img, int x, int y, int color, int size);
 void	draw_2d_map(t_mygame *game);
 void	draw_player(t_mygame *game);
 void	draw_pixel_to_buffer(t_myimg *img, int x, int y, int color);
+void	draw_crosshair(t_mygame *game);
 
 //player
 void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);

@@ -64,7 +64,7 @@ int	mouse_move(int x, int y, t_mygame *game)
 	y = y;
 	if (delta_x != 0)
 	{
-		rotate_camera(game, delta_x * game->player.rot_spd * 5);
+		rotate_camera(game, delta_x * game->player.rot_spd * 2);
 	}
 	game->prev_mouse_x = x;
 	return (0);
