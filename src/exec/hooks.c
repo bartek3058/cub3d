@@ -53,3 +53,19 @@ int	key_release(int keycode, t_mygame *game)
 		game->key_right_arrow = 0;
 	return (0);
 }
+
+int	mouse_move(int x, int y, t_mygame *game)
+{
+	int delta_x;
+
+	if (x < 0 || x >= game->scr_width || game->prev_mouse_x < 0 || game->prev_mouse_x >= game->scr_width)
+		return (0);
+	delta_x = x - game->prev_mouse_x;
+	y = y;
+	if (delta_x != 0)
+	{
+		rotate_camera(game, delta_x * game->player.rot_spd * 5);
+	}
+	game->prev_mouse_x = x;
+	return (0);
+}

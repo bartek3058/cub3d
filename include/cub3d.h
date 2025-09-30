@@ -104,6 +104,8 @@ typedef struct s_mygame
 	int				key_esc;	// ESC
 	int				scr_width;	// szerokość okna
 	int				scr_height;	// wysokość okna
+	int				prev_mouse_x; // poprzednia pozycja myszy X
+	int				prev_mouse_y; // poprzednia pozycja myszy Y
 }	t_mygame;
 
 // Functions
@@ -144,6 +146,7 @@ void	init_player(t_mygame *game);
 int		close_hook(t_mygame *game);
 int		key_press(int keycode, t_mygame *game);
 int		key_release(int keycode, t_mygame *game);
+int		mouse_move(int x, int y, t_mygame *game);
 
 //cleanup
 void	cleanup_display(t_mygame *game);

@@ -46,7 +46,8 @@ void	init_game(t_mygame *game)
 	game->map.grid = NULL;
 	game->map.width = 0;
 	game->map.height = 0;
-
+	
+	
 	// FOR TESTING PURPOSES
 	// For testing: set up a simple 10x10 map
 	// game->map.grid = test_map;
@@ -54,12 +55,15 @@ void	init_game(t_mygame *game)
 	// game->map.height = 10;
 	game->scr_width = 1024;  // Set desired screen width
 	game->scr_height = 512; // Set desired screen height
-
+	
 	allocate_map_grid(game);
 	game->map.tile_size = 10; // Each tile is 10x10 pixels
 	game->scr_height = 512;
 	game->scr_width = 1024;
-
+	game->prev_mouse_x = game->scr_width / 2;
+	game->prev_mouse_y = game->scr_height / 2;
+	printf("Mouse initial pos: x=%d y=%d\n", game->prev_mouse_x, game->prev_mouse_y);
+	
 
 	// END FOR TESTING PURPOSES
 }
