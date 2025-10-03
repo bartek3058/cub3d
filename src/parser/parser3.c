@@ -31,7 +31,7 @@ static int is_config_line(char *line)
 	return (0);
 }
 
-static int	parse_color(char *str)
+int	parse_color(char *str)
 {
 	char	**rgb;
 	int		r;
@@ -40,15 +40,19 @@ static int	parse_color(char *str)
 	int		color;
 	
 	rgb = ft_split(str, ',');
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
-		return (-1);
+	printf ("%s", rgb[2]);
+	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2]
+		|| !rgb[0][1] || !rgb[1][1] || !rgb[2][1])
+			exit_error("Invalid color: missing R,G or B value");
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
+	check_color(r,g,b);
 	color = (r << 16) | (g << 8) | b;
 	free_split(rgb);
 	return (color);
 }
+
 
 static void	save_config_line(t_mygame *game, char *line)
 {
@@ -56,22 +60,12 @@ static void	save_config_line(t_mygame *game, char *line)
 
 	parts = ft_split(line, ' ');
 	if (!parts || !parts[0] || !parts[1])
-		return ;
-	if (!ft_strcmp(parts[0], "NO"))
-		game->config.tex_no = ft_strdup(parts[1]);
-	else if (!ft_strcmp(parts[0], "SO"))
-		game->config.tex_so = ft_strdup(parts[1]);
-	else if (!ft_strcmp(parts[0], "WE"))
-		game->config.tex_we = ft_strdup(parts[1]);
-	else if (!ft_strcmp(parts[0], "EA"))
-		game->config.tex_ea = ft_strdup(parts[1]);
-	else if (!ft_strcmp(parts[0], "F"))
-		game->config.floor_color = parse_color(parts[1]);
-	else if (!ft_strcmp(parts[0], "C"))
-		game->config.ceil_color = parse_color(parts[1]);
+	{
+		exit_error("invalid config line");
+	}
+	save_texture(&game->config, parts[0], parts[1]);
+	save_color(&game->config, parts[0], parts[1]);
 	free_split(parts);
-	// printf("kolor sufitu: %d\n", game->config.ceil_color);
-	// printf("kolor podłogi: %d\n", game->config.floor_color);
 }
 
 int parse_config(char **lines, t_mygame *game)

@@ -12,6 +12,17 @@
 
 #include "../../include/cub3d.h"
 
+static void	init_myconfig(t_mygame *game)
+{	
+	game->config.tex_no = NULL;
+	game->config.tex_so = NULL;
+	game->config.tex_we = NULL;
+	game->config.tex_ea = NULL;
+	game->config.floor_color = -1;
+	game->config.ceil_color = -1;
+
+}
+
 char *test_map[10] = {
 	"1111111111",
 	"1000000001",
@@ -63,6 +74,7 @@ void	init_game(t_mygame *game)
 	game->prev_mouse_x = game->scr_width / 2;
 	game->prev_mouse_y = game->scr_height / 2;
 	printf("Mouse initial pos: x=%d y=%d\n", game->prev_mouse_x, game->prev_mouse_y);
+	init_myconfig(game);
 	
 
 	// END FOR TESTING PURPOSES

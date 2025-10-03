@@ -7,9 +7,12 @@ void    parser(char **argv, t_mygame *game)
 
     lines = load_map(argv[1]);
     map_start = parse_config(lines, game);
+    check_config(game);
     init_map(game, lines, map_start);
-    free_split(lines);
     parse_map(game);
+    check_trailing_lines(lines, map_start + game->map.height - 1);
+    // check_after_map(game, lines);
+    free_split(lines);
     // draw_background(game);
     
     // printf("wysokość %d\n",game->map.height);
@@ -40,7 +43,7 @@ static int handle_tile(t_mygame *game, int i, int j, int *player_found)
     {
         if (*player_found == 1)
         {
-            fprintf(stderr, "Error: multiple player positions\n");
+            exit_error("Error: multiple player positions");
             return 1;
         }
         *player_found = 1;
@@ -77,7 +80,7 @@ int parse_map(t_mygame *game)
     }
     if (player_found == 0)
     {
-        fprintf(stderr, "Error: no player position found\n");
+        exit_error("Error: no player position found");
         return 1;
     }
     return 0;

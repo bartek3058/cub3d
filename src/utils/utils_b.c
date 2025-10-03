@@ -1,5 +1,68 @@
 #include "../../include/cub3d.h"
 
+void	save_texture(t_myconfig *cfg, char *key, char *value)
+{
+	if (!ft_strcmp(key, "NO"))
+	{
+		if (cfg->tex_no != NULL)
+			exit_error("duplicate NO texture");
+		cfg->tex_no = ft_strdup(value);
+	}
+	else if (!ft_strcmp(key, "SO"))
+	{
+		if (cfg->tex_so != NULL)
+			exit_error("duplicate SO texture");
+		cfg->tex_so = ft_strdup(value);
+	}
+	else if (!ft_strcmp(key, "WE"))
+	{
+		if (cfg->tex_we != NULL)
+			exit_error("duplicate WE texture");
+		cfg->tex_we = ft_strdup(value);
+	}
+	else if (!ft_strcmp(key, "EA"))
+	{
+		if (cfg->tex_ea != NULL)
+			exit_error("duplicate EA texture");
+		cfg->tex_ea = ft_strdup(value);
+	}
+}
+
+void	save_color(t_myconfig *cfg, char *key, char *value)
+{
+	if (!ft_strcmp(key, "F"))
+	{
+		if (cfg->floor_color != -1)
+			exit_error("duplicate floor color");
+		cfg->floor_color = parse_color(value);
+	}
+	else if (!ft_strcmp(key, "C"))
+	{
+		if (cfg->ceil_color != -1)
+			exit_error("duplicate ceiling color");
+		cfg->ceil_color = parse_color(value);
+	}
+}
+
+void	check_color(int r, int g, int b)
+{
+	if (r < 0 || r > 255)
+	{
+		printf("Invalid color: %d\n", r);
+		exit(EXIT_FAILURE);
+	}
+	if (g < 0 || g > 255)
+	{
+		printf("Invalid color: %d\n", g);
+		exit(EXIT_FAILURE);
+	}
+	if (b < 0 || b > 255)
+	{
+		printf("Invalid color: %d\n", b);
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;

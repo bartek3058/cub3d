@@ -125,13 +125,14 @@ void	free_split(char **arr);
 
 //parser
 void	parser(char **lines, t_mygame *game);
-int		parse_map(t_mygame *game);
+int parse_map(t_mygame *game);
 void	set_player_direction(t_myplayer *player, char dir);
 int		parse_config(char **lines, t_mygame *game);
 void    draw_background(t_mygame *game);
+int		parse_color(char *str);
+void	check_trailing_lines(char **lines, int map_end_index);
 
 //init
-void	init_myconfig(t_mygame *game);
 void	init_map(t_mygame *game, char **lines, int a);
 int init_image(t_mygame *game, int width, int height);
 
@@ -153,8 +154,13 @@ void	cleanup_display(t_mygame *game);
 void	cleanup_all(t_mygame *game);
 
 //utils
+void	check_config(t_mygame *game);
 int		ft_strcmp(const char *s1, const char *s2);
 int		is_blank(const char *s);
+void	check_color(int r, int g, int b);
+void	save_texture(t_myconfig *cfg, char *key, char *value);
+void	save_color(t_myconfig *cfg, char *key, char *value);
+void	exit_error(const char *msg);
 
 //2d_map
 void	draw_square(t_myimg *img, int x, int y, int color, int size);
