@@ -161,6 +161,7 @@ void	check_color(int r, int g, int b);
 void	save_texture(t_myconfig *cfg, char *key, char *value);
 void	save_color(t_myconfig *cfg, char *key, char *value);
 void	exit_error(const char *msg);
+char	*ft_strtrim(char const *s1, char const *set);
 
 //2d_map
 void	draw_square(t_myimg *img, int x, int y, int color, int size);

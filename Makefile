@@ -28,6 +28,7 @@ SRCS	=	./main.c\
 			./src/exec/player.c\
 			./src/utils/utils_b.c\
 			./src/utils/utils_b_2.c\
+			./src/utils/utils_b_3.c\
 			./src/2d/2d_map.c\
 			./src/raycaster/raycaster.c
 

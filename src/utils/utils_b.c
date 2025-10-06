@@ -1,32 +1,55 @@
 #include "../../include/cub3d.h"
 
+static void	check_xpm_extension(char *filename)
+{
+	char	*trimmed;
+	int		len;
+
+	trimmed = ft_strtrim(filename, " \t\n\r");
+	if (!trimmed)
+		exit_error("malloc failed");
+	len = ft_strlen(trimmed);
+	if (len < 4 || ft_strcmp(trimmed + len - 4, ".xpm") != 0)
+	{
+		free(trimmed);
+		exit_error("Error: texture file must have .xpm extension");
+	}
+
+	free(trimmed);
+}
+
 void	save_texture(t_myconfig *cfg, char *key, char *value)
 {
 	if (!ft_strcmp(key, "NO"))
 	{
 		if (cfg->tex_no != NULL)
 			exit_error("duplicate NO texture");
+		check_xpm_extension(value);
 		cfg->tex_no = ft_strdup(value);
 	}
 	else if (!ft_strcmp(key, "SO"))
 	{
 		if (cfg->tex_so != NULL)
 			exit_error("duplicate SO texture");
+		check_xpm_extension(value);
 		cfg->tex_so = ft_strdup(value);
 	}
 	else if (!ft_strcmp(key, "WE"))
 	{
 		if (cfg->tex_we != NULL)
 			exit_error("duplicate WE texture");
+		check_xpm_extension(value);
 		cfg->tex_we = ft_strdup(value);
 	}
 	else if (!ft_strcmp(key, "EA"))
 	{
 		if (cfg->tex_ea != NULL)
 			exit_error("duplicate EA texture");
+		check_xpm_extension(value);
 		cfg->tex_ea = ft_strdup(value);
 	}
 }
+
 
 void	save_color(t_myconfig *cfg, char *key, char *value)
 {

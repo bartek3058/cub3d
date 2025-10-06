@@ -57,6 +57,64 @@ static int handle_tile(t_mygame *game, int i, int j, int *player_found)
     return 1;
 }
 
+static void flood_check(t_mygame *game, int y, int x)
+{
+    char **grid = game->map.grid;
+
+    // wyjście poza tablicę → mapa otwarta
+    if (y < 0 || y >= game->map.height || x < 0 || x >= (int)ft_strlen(grid[y]))
+        exit_error("Error: map not closed (edge)");
+
+    if (grid[y][x] == ' ')
+        exit_error("Error: map not closed (space hole)");
+
+    // ściana lub odwiedzone
+    if (grid[y][x] == '1' || grid[y][x] == 'V')
+        return;
+
+    // oznacz odwiedzone
+    grid[y][x] = 'V';
+
+    // rekurencja w 4 strony
+    flood_check(game, y - 1, x);
+    flood_check(game, y + 1, x);
+    flood_check(game, y, x - 1);
+    flood_check(game, y, x + 1);
+}
+
+void validate_map_closed(t_mygame *game)
+{
+    int y = 0;
+    int x;
+
+    while (y < game->map.height)
+    {
+        x = 0;
+        while (x < (int)ft_strlen(game->map.grid[y]))
+        {
+            if (game->map.grid[y][x] == '0' || is_player_char(game->map.grid[y][x]))
+                flood_check(game, y, x);
+            x++;
+        }
+        y++;
+    }
+
+    // przywracamy 'V' na '0'
+    y = 0;
+    while (y < game->map.height)
+    {
+        x = 0;
+        while (x < (int)ft_strlen(game->map.grid[y]))
+        {
+            if (game->map.grid[y][x] == 'V')
+                game->map.grid[y][x] = '0';
+            x++;
+        }
+        y++;
+    }
+}
+
+
 int parse_map(t_mygame *game)
 {
     int i;
@@ -83,6 +141,7 @@ int parse_map(t_mygame *game)
         exit_error("Error: no player position found");
         return 1;
     }
+    validate_map_closed(game);
     return 0;
 }
 
