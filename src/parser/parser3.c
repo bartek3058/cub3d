@@ -72,6 +72,13 @@ static void	save_config_line(t_mygame *game, char *line)
 	free_split(parts);
 	// printf("kolor sufitu: %d\n", game->config.ceil_color);
 	// printf("kolor podłogi: %d\n", game->config.floor_color);
+	printf("NO: %s\n", game->config.tex_no);
+	printf("SO: %s\n", game->config.tex_so);
+	printf("WE: %s\n", game->config.tex_we);
+	printf("EA: %s\n", game->config.tex_ea);
+	printf("kolor podłogi: %d\n", game->config.floor_color);
+	printf("kolor sufitu: %d\n", game->config.ceil_color);
+	load_textures(game);
 }
 
 int parse_config(char **lines, t_mygame *game)

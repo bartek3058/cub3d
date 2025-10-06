@@ -62,8 +62,53 @@ void	init_game(t_mygame *game)
 	game->scr_width = 1024;
 	game->prev_mouse_x = game->scr_width / 2;
 	game->prev_mouse_y = game->scr_height / 2;
-	printf("Mouse initial pos: x=%d y=%d\n", game->prev_mouse_x, game->prev_mouse_y);
-	
 
 	// END FOR TESTING PURPOSES
+}
+
+int	load_texture(t_mygame *game, t_myimg *img, char *path)
+{
+	int img_width;
+	int img_height;
+
+	img_width = 64;
+	img_height = 64;
+	img->img = mlx_xpm_file_to_image(game->mlx, path, &img_width, &img_height);
+	if (!img->img)
+	{
+		fprintf(stderr, "Error loading texture from %s\n", path);
+		return (0);
+	}
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
+	if (!img->addr)
+	{
+		fprintf(stderr, "Error getting data address for texture %s\n", path);
+		return (0);
+	}
+	return (1);
+}
+int load_textures(t_mygame *game)
+{
+	printf("Loading texture: %s\n", game->config.tex_no);
+	if (!game->config.tex_no || !load_texture(game, &game->textures.north, game->config.tex_no))
+	{
+		fprintf(stderr, "Failed to load north texture\n");
+		exit(EXIT_FAILURE);
+	}
+	if (!game->config.tex_so || !load_texture(game, &game->textures.south, game->config.tex_so))
+	{
+		fprintf(stderr, "Failed to load south texture\n");
+		exit(EXIT_FAILURE);
+	}
+	if (!game->config.tex_ea || !load_texture(game, &game->textures.east, game->config.tex_ea))
+	{
+		fprintf(stderr, "Failed to load east texture\n");
+		exit(EXIT_FAILURE);
+	}
+	if (!game->config.tex_we || !load_texture(game, &game->textures.west, game->config.tex_we))
+	{
+		fprintf(stderr, "Failed to load west texture\n");
+		exit(EXIT_FAILURE);
+	}
+	return 1;
 }
