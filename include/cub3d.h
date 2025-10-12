@@ -115,22 +115,24 @@ int		game_loop(t_mygame *game);
 // map
 void	check_map_name(int argc, char **argv);
 void	check_map_size(char **argv);
-char	**load_map(char *filename);
+char    **load_map(t_mygame *game, char *filename);
 
 //background
 void draw_background(t_mygame *game);
 
 //free
 void	free_split(char **arr);
+void free_myconfig(t_myconfig *cfg);
+void	free_map_grid(t_mygame *game);
 
 //parser
 void	parser(char **lines, t_mygame *game);
-int parse_map(t_mygame *game);
+int parse_map(char **lines, t_mygame *game);
 void	set_player_direction(t_myplayer *player, char dir);
 int		parse_config(char **lines, t_mygame *game);
 void    draw_background(t_mygame *game);
-int		parse_color(char *str);
-void	check_trailing_lines(char **lines, int map_end_index);
+int	parse_color(char *str, char **lines, char **parts, t_mygame *game);
+void	check_trailing_lines(char **lines, int map_end_index, t_mygame *game);
 
 //init
 void	init_map(t_mygame *game, char **lines, int a);
@@ -154,14 +156,15 @@ void	cleanup_display(t_mygame *game);
 void	cleanup_all(t_mygame *game);
 
 //utils
-void	check_config(t_mygame *game);
+void	check_config(char **lines, t_mygame *game);
 int		ft_strcmp(const char *s1, const char *s2);
 int		is_blank(const char *s);
-void	check_color(int r, int g, int b);
-void	save_texture(t_myconfig *cfg, char *key, char *value);
-void	save_color(t_myconfig *cfg, char *key, char *value);
+void	check_color(int r, int g, int b, char **lines, char **rgb, char **parts, t_mygame *game);
+void	save_texture(t_mygame *game, char *key, char *value, char **lines, char **parts);
+void	save_color(t_mygame *game, char *key, char *value, char **lines, char **parts);
 void	exit_error(const char *msg);
 char	*ft_strtrim(char const *s1, char const *set);
+int	parse_single_color_component(char *component, char **lines, char **rgb, t_mygame *game, char **parts);
 
 //2d_map
 void	draw_square(t_myimg *img, int x, int y, int color, int size);

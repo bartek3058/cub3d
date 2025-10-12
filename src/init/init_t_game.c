@@ -35,14 +35,29 @@ char *test_map[10] = {
 	"1000000001",
 	"1111111111"};
 
-void allocate_map_grid(t_mygame *game)
+void	allocate_map_grid(t_mygame *game)
 {
+	int	y;
+
+	if (game->map.height <= 0)
+		return;
+	y = 0;
 	game->map.grid = malloc(sizeof(char *) * game->map.height);
-	for (int y = 0; y < game->map.height; y++)
+	if (!game->map.grid)
+		exit_error("Error: malloc failed for map grid");
+
+	while (y < game->map.height)
 	{
-		game->map.grid[y] = strdup(test_map[y]);
+		game->map.grid[y] = ft_strdup(test_map[y]);
+		if (!game->map.grid[y])
+		{
+			free_map_grid(game);
+			exit_error("Error: malloc failed for map row");
+		}
+		y++;
 	}
 }
+
 
 void	init_game(t_mygame *game)
 {

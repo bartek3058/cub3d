@@ -46,7 +46,7 @@ static  char    *read_file(int fd)
     }
     return (content);
 }
-char    **load_map(char *filename)
+char    **load_map(t_mygame *game, char *filename)
 {
     int     fd;
     char    *file_content;
@@ -55,6 +55,7 @@ char    **load_map(char *filename)
     fd = open(filename, O_RDONLY);
     if (fd < 0)
     {
+        free_map_grid(game);
         perror("Error\nInvalid map");
         exit(EXIT_FAILURE);
     }
@@ -63,6 +64,7 @@ char    **load_map(char *filename)
     if (!file_content || file_content[0] == '\0')
     {
         free(file_content);
+        free_map_grid(game);
         write(2, "Error\nEmpty file\n", 17);
         exit(EXIT_FAILURE);
     }

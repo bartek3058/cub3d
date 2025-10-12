@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-static void	check_xpm_extension(char *filename)
+static void	check_xpm_extension(t_mygame *game, char *filename, char **lines, char **parts)
 {
 	char	*trimmed;
 	int		len;
@@ -11,6 +11,10 @@ static void	check_xpm_extension(char *filename)
 	len = ft_strlen(trimmed);
 	if (len < 4 || ft_strcmp(trimmed + len - 4, ".xpm") != 0)
 	{
+		free_split(lines);
+		free_split(parts);
+		free_myconfig(&game->config);
+		free_map_grid(game);
 		free(trimmed);
 		exit_error("Error: texture file must have .xpm extension");
 	}
@@ -18,70 +22,109 @@ static void	check_xpm_extension(char *filename)
 	free(trimmed);
 }
 
-void	save_texture(t_myconfig *cfg, char *key, char *value)
+void	save_texture(t_mygame *game, char *key, char *value, char **lines, char **parts)
 {
 	if (!ft_strcmp(key, "NO"))
 	{
-		if (cfg->tex_no != NULL)
+		if (game->config.tex_no != NULL)
+		{
+			free_split(lines);
+			free_split(parts);
+			free_map_grid(game);
+			free_myconfig(&game->config);
 			exit_error("duplicate NO texture");
-		check_xpm_extension(value);
-		cfg->tex_no = ft_strdup(value);
+		}
+		check_xpm_extension(game, value, lines, parts);
+		game->config.tex_no = ft_strdup(value);
 	}
 	else if (!ft_strcmp(key, "SO"))
 	{
-		if (cfg->tex_so != NULL)
+		if (game->config.tex_so != NULL)
+		{
+			free_split(lines);
+			free_split(parts);
+			free_map_grid(game);
+			free_myconfig(&game->config);
 			exit_error("duplicate SO texture");
-		check_xpm_extension(value);
-		cfg->tex_so = ft_strdup(value);
+		}
+		check_xpm_extension(game, value, lines, parts);
+		game->config.tex_so = ft_strdup(value);
 	}
 	else if (!ft_strcmp(key, "WE"))
 	{
-		if (cfg->tex_we != NULL)
+		if (game->config.tex_we != NULL)
+		{
+			free_split(lines);
+			free_split(parts);
+			free_map_grid(game);
+			free_myconfig(&game->config);
 			exit_error("duplicate WE texture");
-		check_xpm_extension(value);
-		cfg->tex_we = ft_strdup(value);
+		}
+		check_xpm_extension(game, value, lines, parts);
+		game->config.tex_we = ft_strdup(value);
 	}
 	else if (!ft_strcmp(key, "EA"))
 	{
-		if (cfg->tex_ea != NULL)
+		if (game->config.tex_ea != NULL)
+		{
+			free_split(lines);
+			free_split(parts);
+			free_map_grid(game);
+			free_myconfig(&game->config);
 			exit_error("duplicate EA texture");
-		check_xpm_extension(value);
-		cfg->tex_ea = ft_strdup(value);
+		}
+		check_xpm_extension(game, value, lines, parts);
+		game->config.tex_ea = ft_strdup(value);
 	}
 }
 
 
-void	save_color(t_myconfig *cfg, char *key, char *value)
+void	save_color(t_mygame *game, char *key, char *value, char **lines, char **parts)
 {
 	if (!ft_strcmp(key, "F"))
 	{
-		if (cfg->floor_color != -1)
+		if (game->config.floor_color != -1)
 			exit_error("duplicate floor color");
-		cfg->floor_color = parse_color(value);
+		game->config.floor_color = parse_color(value, lines, parts, game);
 	}
 	else if (!ft_strcmp(key, "C"))
 	{
-		if (cfg->ceil_color != -1)
+		if (game->config.ceil_color != -1)
 			exit_error("duplicate ceiling color");
-		cfg->ceil_color = parse_color(value);
+		game->config.ceil_color = parse_color(value, lines, parts, game);
 	}
 }
 
-void	check_color(int r, int g, int b)
+void	check_color(int r, int g, int b, char **lines, char **rgb, char **parts, t_mygame *game)
 {
 	if (r < 0 || r > 255)
 	{
 		printf("Invalid color: %d\n", r);
+		free_split(rgb);
+		free_split(lines);
+		free_split(parts);
+		free_map_grid(game);
+		free_myconfig(&game->config);
 		exit(EXIT_FAILURE);
 	}
 	if (g < 0 || g > 255)
 	{
 		printf("Invalid color: %d\n", g);
+		free_split(rgb);
+		free_split(lines);
+		free_split(parts);
+		free_map_grid(game);
+		free_myconfig(&game->config);
 		exit(EXIT_FAILURE);
 	}
 	if (b < 0 || b > 255)
 	{
 		printf("Invalid color: %d\n", b);
+		free_split(rgb);
+		free_split(lines);
+		free_split(parts);
+		free_map_grid(game);
+		free_myconfig(&game->config);
 		exit(EXIT_FAILURE);
 	}
 }

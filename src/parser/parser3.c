@@ -31,30 +31,40 @@ static int is_config_line(char *line)
 	return (0);
 }
 
-int	parse_color(char *str)
+int	parse_color(char *str, char **lines, char **parts, t_mygame *game)
 {
 	char	**rgb;
 	int		r;
 	int		g;
 	int		b;
 	int		color;
-	
+
 	rgb = ft_split(str, ',');
-	printf ("%s", rgb[2]);
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2]
-		|| !rgb[0][1] || !rgb[1][1] || !rgb[2][1])
-			exit_error("Invalid color: missing R,G or B value");
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
-	check_color(r,g,b);
+	printf("TUTAJ: %s\n", rgb[0]);
+	printf("TUTAJ: %s\n", rgb[1]);
+	printf("TUTAJ: %s\n", rgb[2]);
+	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
+	{
+		free_split(lines);
+		free_split(rgb);
+		free_myconfig(&game->config);
+		free_map_grid(game);
+		free_split(parts);
+		exit_error("Invalid color: missing R,G or B value");
+	}
+	r = parse_single_color_component(rgb[0], lines, rgb, game, parts);
+	g = parse_single_color_component(rgb[1], lines, rgb, game, parts);
+	b = parse_single_color_component(rgb[2], lines, rgb, game, parts);
+
+	check_color(r, g, b, lines, rgb, parts, game);
 	color = (r << 16) | (g << 8) | b;
+
 	free_split(rgb);
 	return (color);
 }
 
 
-static void	save_config_line(t_mygame *game, char *line)
+static void	save_config_line(t_mygame *game, char *line, char **lines)
 {
 	char **parts;
 
@@ -63,8 +73,8 @@ static void	save_config_line(t_mygame *game, char *line)
 	{
 		exit_error("invalid config line");
 	}
-	save_texture(&game->config, parts[0], parts[1]);
-	save_color(&game->config, parts[0], parts[1]);
+	save_texture(game, parts[0], parts[1], lines, parts);
+	save_color(game, parts[0], parts[1], lines, parts);
 	free_split(parts);
 }
 
@@ -82,7 +92,7 @@ int parse_config(char **lines, t_mygame *game)
 		}
 		if (is_config_line(lines[i]))
 		{
-			save_config_line(game, lines[i]);
+			save_config_line(game, lines[i], lines);
 			i++;
 			continue ;
 		}

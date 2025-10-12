@@ -15,3 +15,27 @@ void	free_split(char **arr)
 	}
 	free(arr);
 }
+
+void free_myconfig(t_myconfig *cfg)
+{
+	free(cfg->tex_no);
+	free(cfg->tex_so);
+	free(cfg->tex_we);
+	free(cfg->tex_ea);
+}
+
+void	free_map_grid(t_mygame *game)
+{
+	int	y;
+
+	if (!game->map.grid)
+		return ;
+	y = 0;
+	while (y < game->map.height)
+	{
+		free(game->map.grid[y]);
+		y++;
+	}
+	free(game->map.grid);
+	game->map.grid = NULL;
+}

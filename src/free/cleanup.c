@@ -31,6 +31,13 @@ static void	cleanup_map(t_mygame *game)
 
 void	cleanup_display(t_mygame *game)
 {
+	if (game->img.img)
+    {
+        mlx_destroy_image(game->mlx, game->img. img);
+        game->img.img = NULL;
+    }
+	free_myconfig(&game->config);
+	free_map_grid(game);
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
@@ -39,17 +46,13 @@ void	cleanup_display(t_mygame *game)
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
-		// free(game->mlx);
+		free(game->mlx);
 		game->mlx = NULL;
 	}
 }
 
 void	cleanup_all(t_mygame *game)
 {
-	// cleanup_display(game);
-	// Cleanup other resources (textures, images, etc.)
-    //cleanup_images(game);
+	cleanup_display(game);
     cleanup_map(game);
-    // cleanup_textures(game);
-    //cleanup_player(game);
 }
