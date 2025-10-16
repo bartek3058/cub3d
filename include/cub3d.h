@@ -108,6 +108,18 @@ typedef struct s_mygame
 	int				prev_mouse_y; // poprzednia pozycja myszy Y
 }	t_mygame;
 
+// some structures for help (norminette)
+
+typedef struct s_draw_player_vars
+{
+	int	x;
+	int	y;
+	int	px;
+	int	py;
+	int	i;
+	int	j;
+}	t_draw_player_vars;
+
 // Functions
 //main
 int		game_loop(t_mygame *game);
@@ -167,11 +179,12 @@ char	*ft_strtrim(char const *s1, char const *set);
 int	parse_single_color_component(char *component, char **lines, char **rgb, t_mygame *game, char **parts);
 
 //2d_map
-void	draw_square(t_myimg *img, int x, int y, int color, int size);
+void draw_square(t_mygame *game, int x, int y, int color);
 void	draw_2d_map(t_mygame *game);
 void	draw_player(t_mygame *game);
 void	draw_pixel_to_buffer(t_myimg *img, int x, int y, int color);
 void	draw_crosshair(t_mygame *game);
+t_draw_player_vars	init_draw_player_vars(t_mygame *game);
 
 //player
 void	move_player(t_mygame *game, double new_x_pos, double new_y_pos);
