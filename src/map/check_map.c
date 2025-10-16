@@ -50,13 +50,14 @@ static char	*read_file(int fd)
 	if (!content)
 		return (NULL);
 	content[0] = '\0';
-	bytes = read (fd, buf, 1024);
+	bytes = read(fd, buf, 1024);
 	while (bytes > 0)
 	{
 		buf[bytes] = '\0';
 		tmp = ft_strjoin(content, buf);
 		free(content);
 		content = tmp;
+		bytes = read(fd, buf, 1024);
 	}
 	return (content);
 }

@@ -22,27 +22,27 @@ static void	init_myconfig(t_mygame *game)
 	game->config.ceil_color = -1;
 }
 
-void	allocate_map_grid(t_mygame *game)
-{
-	int	y;
+//void	allocate_map_grid(t_mygame *game)
+//{
+//	int	y;
 
-	if (game->map.height <= 0)
-		return ;
-	y = 0;
-	game->map.grid = malloc(sizeof(char *) * game->map.height);
-	if (!game->map.grid)
-		exit_error("Error: malloc failed for map grid");
-	while (y < game->map.height)
-	{
-		game->map.grid[y] = ft_strdup(test_map[y]);
-		if (!game->map.grid[y])
-		{
-			free_map_grid(game);
-			exit_error("Error: malloc failed for map row");
-		}
-		y++;
-	}
-}
+//	if (game->map.height <= 0)
+//		return ;
+//	y = 0;
+//	game->map.grid = malloc(sizeof(char *) * game->map.height);
+//	if (!game->map.grid)
+//		exit_error("Error: malloc failed for map grid");
+//	while (y < game->map.height)
+//	{
+//		game->map.grid[y] = ft_strdup(test_map[y]);
+//		if (!game->map.grid[y])
+//		{
+//			free_map_grid(game);
+//			exit_error("Error: malloc failed for map row");
+//		}
+//		y++;
+//	}
+//}
 
 void	init_game(t_mygame *game)
 {
@@ -58,7 +58,7 @@ void	init_game(t_mygame *game)
 	game->map.height = 0;
 	game->scr_width = 1024;
 	game->scr_height = 512;
-	allocate_map_grid(game);
+	//allocate_map_grid(game);
 	game->map.tile_size = 10;
 	game->scr_height = 512;
 	game->scr_width = 1024;

@@ -120,6 +120,13 @@ typedef struct s_draw_player_vars
 	int	j;
 }	t_draw_player_vars;
 
+typedef struct s_parse_ctx
+{
+	t_mygame	*game;
+	char		**lines;
+}	t_parse_ctx;
+
+
 // Functions
 //main
 int		game_loop(t_mygame *game);
@@ -145,6 +152,11 @@ int		parse_config(char **lines, t_mygame *game);
 void    draw_background(t_mygame *game);
 int	parse_color(char *str, char **lines, char **parts, t_mygame *game);
 void	check_trailing_lines(char **lines, int map_end_index, t_mygame *game);
+int starts_with_token(const char *s, const char *tok);
+void	validate_map_closed(char **lines, t_mygame *game);
+void	map_parse_error(t_parse_ctx *ctx, char *msg);
+void flood_check(char **lines, t_mygame *game, int y, int x);
+int is_player_char(char c);
 
 //init
 void	init_map(t_mygame *game, char **lines, int a);
