@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-static int	is_blank_char(char c)
+int	is_blank_char(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\v' || c == '\r');
 }

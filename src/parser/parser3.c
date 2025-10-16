@@ -63,16 +63,44 @@ int	parse_color(char *str, char **lines, char **parts, t_mygame *game)
 	return (color);
 }
 
+static char	**smart_split_config(char *line)
+{
+	char	**parts;
+	int		i;
+
+	parts = malloc(sizeof(char *) * 3);
+	if (!parts)
+		return (NULL);
+	i = 0;
+	// pomiń białe znaki na początku
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	int start = i;
+	// znajdź koniec pierwszego słowa (np. "F" albo "NO")
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
+		i++;
+	parts[0] = ft_substr(line, start, i - start);
+
+	// pomiń spacje między identyfikatorem a wartością
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+
+	// reszta linii to druga część (np. "30,   40,   50")
+	parts[1] = ft_strdup(line + i);
+	parts[2] = NULL;
+
+	return (parts);
+}
+
 
 static void	save_config_line(t_mygame *game, char *line, char **lines)
 {
 	char **parts;
 
-	parts = ft_split(line, ' ');
+	parts = smart_split_config(line);
 	if (!parts || !parts[0] || !parts[1])
-	{
-		exit_error("invalid config line");
-	}
+		exit_error("Invalid config line");
+
 	save_texture(game, parts[0], parts[1], lines, parts);
 	save_color(game, parts[0], parts[1], lines, parts);
 	free_split(parts);

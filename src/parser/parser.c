@@ -27,6 +27,13 @@ static int handle_tile(t_mygame *game, int i, int j, int *player_found, char **l
     c = game->map.grid[i][j];
     if (c == '1' || c == '0' || c == ' ')
         return 0;
+    if (c != '0' && c != '1' && c != ' ' && !is_player_char(c))
+    {
+        free_split(lines);
+        free_myconfig(&game->config);
+        free_map_grid(game);
+        exit_error("Error: invalid character in map");
+    }
     if (is_player_char(c))
     {
         if (*player_found == 1)
@@ -44,6 +51,7 @@ static int handle_tile(t_mygame *game, int i, int j, int *player_found, char **l
         game->map.grid[i][j] = '0';
         return 0;
     }
+    
     // fprintf(stderr, "Error: invalid char '%c' at (%d,%d)\n", c, i, j);
     return 1;
 }
@@ -61,16 +69,16 @@ static void flood_check(char **lines, t_mygame *game, int y, int x)
         exit_error("Error: map not closed (edge)");
     }
     if (grid[y][x] == ' ')
+    {
+        free_split(lines);
+        free_myconfig(&game->config);
+        free_map_grid(game);
         exit_error("Error: map not closed (space hole)");
-
+    }
     // ściana lub odwiedzone
     if (grid[y][x] == '1' || grid[y][x] == 'V')
         return;
-
-    // oznacz odwiedzone
     grid[y][x] = 'V';
-
-    // rekurencja w 4 strony
     flood_check(lines, game, y - 1, x);
     flood_check(lines, game, y + 1, x);
     flood_check(lines, game, y, x - 1);

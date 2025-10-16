@@ -62,6 +62,6 @@ int	main(int argc, char **argv)
 	mlx_hook(game.win, 17, 0, close_hook, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
-	// cleanup_all(&game);
+	cleanup_all(&game);
 	exit(EXIT_SUCCESS);
 }
