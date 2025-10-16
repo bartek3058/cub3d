@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/27 12:01:51 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:50:19 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,7 @@ void	rotate_player(t_mygame *game)
 
 void	rotate_camera(t_mygame *game, double angle)
 {
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = game->player.dir_x;
-	game->player.dir_x
-		= game->player.dir_x * cos(angle)
-		- game->player.dir_y * sin(angle);
-	game->player.dir_y
-		= old_dir_x * sin(angle)
-		+ game->player.dir_y * cos(angle);
-	old_plane_x = game->player.plane_x;
-	game->player.plane_x
-		= game->player.plane_x * cos(angle)
-		- game->player.plane_y * sin(angle);
-	game->player.plane_y
-		= old_plane_x * sin(angle)
-		+ game->player.plane_y * cos(angle);
+	update_camera_vectors(&game->player, angle);
 	game->player.angle = fmod(game->player.angle + angle, 2 * 3.14159);
 	if (game->player.angle < 0)
 		game->player.angle += 2 * 3.14159;
@@ -73,7 +57,6 @@ void	rotate_camera(t_mygame *game, double angle)
 		game->player.plane_x, game->player.plane_y);
 	printf("Player move to: (%.2f, %.2f)\n",
 		game->player.mv_dir_x, game->player.mv_dir_y);
-
 }
 
 void	update_player_controls(t_mygame *game)

@@ -162,6 +162,7 @@ int		close_hook(t_mygame *game);
 int		key_press(int keycode, t_mygame *game);
 int		key_release(int keycode, t_mygame *game);
 int		mouse_move(int x, int y, t_mygame *game);
+void	update_camera_vectors(t_myplayer *player, double angle);
 
 //cleanup
 void	cleanup_display(t_mygame *game);
