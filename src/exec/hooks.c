@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:49:21 by tszymans          #+#    #+#             */
-/*   Updated: 2025/09/17 09:25:54 by tszymans         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:54:30 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,31 @@ int	key_release(int keycode, t_mygame *game)
 
 int	mouse_move(int x, int y, t_mygame *game)
 {
-	int delta_x;
+	int	delta_x;
 
-	if (x < 0 || x >= game->scr_width || game->prev_mouse_x < 0 || game->prev_mouse_x >= game->scr_width)
+	if (x < 0 || x >= game->scr_width || game->prev_mouse_x < 0
+		|| game->prev_mouse_x >= game->scr_width)
 		return (0);
 	delta_x = x - game->prev_mouse_x;
-	y = y;
+	(void)y;
 	if (delta_x != 0)
 	{
 		rotate_camera(game, delta_x * game->player.rot_spd * 2);
 	}
 	game->prev_mouse_x = x;
 	return (0);
+}
+
+void	update_camera_vectors(t_myplayer *player, double angle)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = player->dir_x;
+	old_plane_x = player->plane_x;
+	player->dir_x = player->dir_x * cos(angle) - player->dir_y * sin(angle);
+	player->dir_y = old_dir_x * sin(angle) + player->dir_y * cos(angle);
+	player->plane_x = player->plane_x * cos(angle) - player->plane_y
+		* sin(angle);
+	player->plane_y = old_plane_x * sin(angle) + player->plane_y * cos(angle);
 }

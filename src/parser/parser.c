@@ -1,85 +1,112 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 17:19:41 by brogalsk          #+#    #+#             */
+/*   Updated: 2025/10/16 17:23:38 by brogalsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-void    parser(char **argv, t_mygame *game)
+void	parser(char **argv, t_mygame *game)
 {
-    char **lines;
-    int map_start;
+	char	**lines;
+	int		map_start;
 
-    lines = load_map(argv[1]);
-    map_start = parse_config(lines, game);
-    init_map(game, lines, map_start);
-    free_split(lines);
-    parse_map(game);
-    // draw_background(game);
-    
-    // printf("wysokość %d\n",game->map.height);
-    // printf("szerokosc %d\n",game->map.width);
-    // int i;
-    // i = 0;
-    // while (i < game->map.height)
-    // {
-    //     printf("%s\n", game->map.grid[i]);
-    //     i++;
-    // }
-}
-static int is_player_char(char c)
-{
-    if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-        return (1);
-    return (0);
+	lines = load_map(game, argv[1]);
+	map_start = parse_config(lines, game);
+	check_config(lines, game);
+	init_map(game, lines, map_start);
+	parse_map(lines, game);
+	check_trailing_lines(lines, map_start + game->map.height - 1, game);
+	free_split(lines);
 }
 
-static int handle_tile(t_mygame *game, int i, int j, int *player_found)
+int	is_player_char(char c)
 {
-    char c;
-
-    c = game->map.grid[i][j];
-    if (c == '1' || c == '0' || c == ' ')
-        return 0;
-    if (is_player_char(c))
-    {
-        if (*player_found == 1)
-        {
-            fprintf(stderr, "Error: multiple player positions\n");
-            return 1;
-        }
-        *player_found = 1;
-        game->player.x = j + 0.5;
-        game->player.y = i + 0.5;
-        set_player_direction(&game->player, c);
-        game->map.grid[i][j] = '0';
-        return 0;
-    }
-    // fprintf(stderr, "Error: invalid char '%c' at (%d,%d)\n", c, i, j);
-    return 1;
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
 }
 
-int parse_map(t_mygame *game)
+static int	handle_tile(t_parse_ctx *ctx, int i, int j, int *player_found)
 {
-    int i;
-    int j;
-    int err;
-    int player_found;
+	char	c;
 
-    i = 0;
-    player_found = 0;
-    while (i < game->map.height)
-    {
-        j = 0;
-        while (j < game->map.width)
-        {
-            err = handle_tile(game, i, j, &player_found);
-            if (err == 1)
-                return 1;
-            j++;
-        }
-        i++;
-    }
-    if (player_found == 0)
-    {
-        fprintf(stderr, "Error: no player position found\n");
-        return 1;
-    }
-    return 0;
+	c = ctx->game->map.grid[i][j];
+	if (c == '1' || c == '0' || c == ' ')
+		return (0);
+	if (!is_player_char(c) && c != '1' && c != '0' && c != ' ')
+		map_parse_error(ctx, "Error: invalid character in map");
+	if (is_player_char(c))
+	{
+		if (*player_found == 1)
+			map_parse_error(ctx, "Error: multiple player positions");
+		*player_found = 1;
+		ctx->game->player.x = j + 0.5;
+		ctx->game->player.y = i + 0.5;
+		set_player_direction(&ctx->game->player, c);
+		ctx->game->map.grid[i][j] = '0';
+	}
+	return (0);
 }
 
+void	flood_check(char **lines, t_mygame *game, int y, int x)
+{
+	char	**grid;
+
+	grid = game->map.grid;
+	if (y < 0 || y >= game->map.height || x < 0 || x >= (int)ft_strlen(grid[y]))
+	{
+		free_split(lines);
+		free_myconfig(&game->config);
+		free_map_grid(game);
+		exit_error("Error: map not closed (edge)");
+	}
+	if (grid[y][x] == ' ')
+	{
+		free_split(lines);
+		free_myconfig(&game->config);
+		free_map_grid(game);
+		exit_error("Error: map not closed (space hole)");
+	}
+	if (grid[y][x] == '1' || grid[y][x] == 'V')
+		return ;
+	grid[y][x] = 'V';
+	flood_check(lines, game, y - 1, x);
+	flood_check(lines, game, y + 1, x);
+	flood_check(lines, game, y, x - 1);
+	flood_check(lines, game, y, x + 1);
+}
+
+int	parse_map(char **lines, t_mygame *game)
+{
+	int			i;
+	int			j;
+	int			player_found;
+	t_parse_ctx	ctx;
+
+	ctx.game = game;
+	ctx.lines = lines;
+	player_found = 0;
+	i = 0;
+	while (i < game->map.height)
+	{
+		j = 0;
+		while (j < game->map.width)
+		{
+			if (handle_tile(&ctx, i, j, &player_found) == 1)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	if (player_found == 0)
+		map_parse_error(&ctx, "Error: no player position found");
+	validate_map_closed(lines, game);
+	return (0);
+}

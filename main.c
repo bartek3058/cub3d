@@ -40,14 +40,12 @@ int	main(int argc, char **argv)
 {
 	t_mygame	game;
 
+	check_map_name(argc, argv);
 	init_game(&game);
 	none(argc, argv);
-	check_map_name(argc, argv);
 	parser(argv, &game);
 	if (!init_window(&game))
 	{
-		// cleanup_map(&game);     // trzeba będzie dopisać
-		// cleanup_display(&game);
 		cleanup_all(&game);
 		exit(EXIT_FAILURE);
 	}

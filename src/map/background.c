@@ -1,16 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   background.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 15:15:52 by brogalsk          #+#    #+#             */
+/*   Updated: 2025/10/16 15:16:57 by brogalsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-static void    my_mlx_pixel_put(t_myimg *img, int x, int y, int color)
+static void	my_mlx_pixel_put(t_myimg *img, int x, int y, int color)
 {
-    char    *dst;
+	char	*dst;
 
-
-    dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    *(unsigned int *)dst = color;
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
-
-void draw_background(t_mygame *game)
+void	draw_background(t_mygame *game)
 {
 	int	x;
 	int	y;
