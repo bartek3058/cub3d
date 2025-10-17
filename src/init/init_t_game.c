@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:40:40 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/16 15:09:19 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:03:48 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	init_game(t_mygame *game)
 	game->map.height = 0;
 	game->scr_width = 1024;
 	game->scr_height = 512;
-	//allocate_map_grid(game);
 	game->map.tile_size = 10;
 	game->scr_height = 512;
 	game->scr_width = 1024;

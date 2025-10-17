@@ -6,13 +6,13 @@
 /*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:00:10 by brogalsk          #+#    #+#             */
-/*   Updated: 2025/10/16 17:03:18 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:02:39 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static int	is_config_line(char *line)
+int	is_config_line(char *line)
 {
 	if (!line || is_blank(line))
 		return (0);
@@ -23,30 +23,38 @@ static int	is_config_line(char *line)
 	return (0);
 }
 
+static void	free_color_ctx(t_color_ctx *ctx)
+{
+	free_split(ctx->lines);
+	free_split(ctx->rgb);
+	free_split(ctx->parts);
+	free_map_grid(ctx->game);
+	free_myconfig(&ctx->game->config);
+}
+
 int	parse_color(char *str, char **lines, char **parts, t_mygame *game)
 {
-	char	**rgb;
-	int		r;
-	int		g;
-	int		b;
-	int		color;
+	t_color_ctx	ctx;
+	int			r;
+	int			g;
+	int			b;
+	int			color;
 
-	rgb = ft_split(str, ',');
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
+	ctx.lines = lines;
+	ctx.parts = parts;
+	ctx.game = game;
+	ctx.rgb = ft_split(str, ',');
+	if (!ctx.rgb || !ctx.rgb[0] || !ctx.rgb[1] || !ctx.rgb[2])
 	{
-		free_split(lines);
-		free_split(rgb);
-		free_myconfig(&game->config);
-		free_map_grid(game);
-		free_split(parts);
+		free_color_ctx(&ctx);
 		exit_error("Invalid color: missing R,G or B value");
 	}
-	r = parse_single_color_component(rgb[0], lines, rgb, game, parts);
-	g = parse_single_color_component(rgb[1], lines, rgb, game, parts);
-	b = parse_single_color_component(rgb[2], lines, rgb, game, parts);
-	check_color(r, g, b, lines, rgb, parts, game);
+	r = parse_single_color_component(&ctx, ctx.rgb[0]);
+	g = parse_single_color_component(&ctx, ctx.rgb[1]);
+	b = parse_single_color_component(&ctx, ctx.rgb[2]);
+	check_color(&ctx, r, g, b);
 	color = (r << 16) | (g << 8) | b;
-	free_split(rgb);
+	free_split(ctx.rgb);
 	return (color);
 }
 
@@ -73,37 +81,17 @@ static char	**smart_split_config(char *line)
 	return (parts);
 }
 
-static void	save_config_line(t_mygame *game, char *line, char **lines)
+void	save_config_line(t_mygame *game, char *line, char **lines)
 {
-	char	**parts;
+	char			**parts;
+	t_parse_ctx		ctx;
 
+	ctx.game = game;
+	ctx.lines = lines;
 	parts = smart_split_config(line);
 	if (!parts || !parts[0] || !parts[1])
 		exit_error("Invalid config line");
-	save_texture(game, parts[0], parts[1], lines, parts);
-	save_color(game, parts[0], parts[1], lines, parts);
+	save_texture(&ctx, parts[0], parts[1], parts);
+	save_color(&ctx, parts[0], parts[1], parts);
 	free_split(parts);
-}
-
-int	parse_config(char **lines, t_mygame *game)
-{
-	int	i;
-
-	i = 0;
-	while (lines[i])
-	{
-		if (is_blank(lines[i]))
-		{
-			i++;
-			continue ;
-		}
-		if (is_config_line(lines[i]))
-		{
-			save_config_line(game, lines[i], lines);
-			i++;
-			continue ;
-		}
-		break ;
-	}
-	return (i);
 }

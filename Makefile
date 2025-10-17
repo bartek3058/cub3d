@@ -18,6 +18,7 @@ SRCS	=	./main.c\
 			./src/parser/parser2.c\
 			./src/parser/parser3.c\
 			./src/parser/parser4.c\
+			./src/parser/parser5.c\
 			./src/free/free.c\
 			./src/init/init_b.c\
 			./src/init/init.c\
@@ -29,6 +30,7 @@ SRCS	=	./main.c\
 			./src/utils/utils_b.c\
 			./src/utils/utils_b_2.c\
 			./src/utils/utils_b_3.c\
+			./src/utils/utils_b_4.c\
 			./src/2d/2d_map.c\
 			./src/2d/2d_map_2.c\
 			./src/raycaster/raycaster.c

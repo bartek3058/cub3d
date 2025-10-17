@@ -12,7 +12,7 @@
 
 #include "../../include/cub3d.h"
 
-static void	draw_nose(t_mygame *game, t_myplayer *player, int px, int py)
+void	draw_nose(t_mygame *game, t_myplayer *player, int px, int py)
 {
 	int	nose_length;
 	int	nx;
@@ -34,7 +34,7 @@ static void	draw_nose(t_mygame *game, t_myplayer *player, int px, int py)
 	}
 }
 
-static void	draw_mv_dir(t_mygame *game, t_myplayer *player, int px, int py)
+void	draw_mv_dir(t_mygame *game, t_myplayer *player, int px, int py)
 {
 	int	mv_length;
 	int	nx;
@@ -54,34 +54,6 @@ static void	draw_mv_dir(t_mygame *game, t_myplayer *player, int px, int py)
 		}
 		i++;
 	}
-}
-
-void	draw_player(t_mygame *game)
-{
-	t_draw_player_vars		v;
-	char					*dst;
-
-	v = init_draw_player_vars(game);
-	while (v.i < game->player.player_size)
-	{
-		v.j = 0;
-		while (v.j < game->player.player_size)
-		{
-			v.x = v.px + v.j;
-			v.y = v.py + v.i;
-			if (v.x >= 0 && v.x < game->map.width * game->map.tile_size
-				&& v.y >= 0 && v.y < game->map.height * game->map.tile_size)
-			{
-				dst = game->img.addr + (v.y * game->img.line_len
-						+ v.x * (game->img.bpp / 8));
-				*(unsigned int *)dst = 0xFF0000;
-			}
-			v.j++;
-		}
-		v.i++;
-	}
-	draw_nose(game, &game->player, v.px, v.py);
-	draw_mv_dir(game, &game->player, v.px, v.py);
 }
 
 void	draw_2d_map(t_mygame *game)
