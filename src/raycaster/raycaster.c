@@ -78,30 +78,30 @@ int	darker_color(int *color, double factor)
 	return (*color);
 }
 
-static void	draw_line(t_myray *ray, t_mygame *game, int x)
-{
-	int		color;
-	int		y;
+// static void	draw_line(t_myray *ray, t_mygame *game, int x)
+// {
+// 	int		color;
+// 	int		y;
 
-	color = 0xFF0000;
-	ray->line_height = (int)(game->scr_height / ray->perp_wall_dist);
-	ray->draw_start = -ray->line_height / 2 + game->scr_height / 2;
-	if (ray->draw_start < 0)
-		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + game->scr_height / 2;
-	if (ray->draw_end >= game->scr_height)
-		ray->draw_end = game->scr_height - 1;
-	if (ray->side == 1)
-	{
-		color = darker_color(&color, 0.7);
-	}
-	y = ray->draw_start;
-	while (y < ray->draw_end)
-	{
-		draw_pixel_to_buffer(&game->img, x, y, color);
-		y++;
-	}
-}
+// 	color = 0xFF0000;
+// 	ray->line_height = (int)(game->scr_height / ray->perp_wall_dist);
+// 	ray->draw_start = -ray->line_height / 2 + game->scr_height / 2;
+// 	if (ray->draw_start < 0)
+// 		ray->draw_start = 0;
+// 	ray->draw_end = ray->line_height / 2 + game->scr_height / 2;
+// 	if (ray->draw_end >= game->scr_height)
+// 		ray->draw_end = game->scr_height - 1;
+// 	if (ray->side == 1)
+// 	{
+// 		color = darker_color(&color, 0.7);
+// 	}
+// 	y = ray->draw_start;
+// 	while (y < ray->draw_end)
+// 	{
+// 		draw_pixel_to_buffer(&game->img, x, y, color);
+// 		y++;
+// 	}
+// }
 
 void	raycaster(t_myray *ray, t_mygame *game)
 {
@@ -115,8 +115,8 @@ void	raycaster(t_myray *ray, t_mygame *game)
 		ray->ray_dir_y = game->player.dir_y + game->player.plane_y * ray->cam_x;
 		ray->map_x = (int)game->player.x;
 		ray->map_y = (int)game->player.y;
-		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+		ray->delta_dist_x = (ray->ray_dir_x == 0.0) ? 1e30 : fabs(1.0 / ray->ray_dir_x);
+		ray->delta_dist_y = (ray->ray_dir_y == 0.0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
 		ray->hit = 0;
 		initial_side_dist(ray, game);
 		dda(ray, game);
@@ -124,7 +124,15 @@ void	raycaster(t_myray *ray, t_mygame *game)
 			ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 		else
 			ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-		draw_line(ray, game, x);
+		//draw_line(ray, game, x);
+		ray->line_height = (int)(game->scr_height / ray->perp_wall_dist);
+		ray->draw_start = -ray->line_height / 2 + game->scr_height / 2;
+		if (ray->draw_start < 0)
+			ray->draw_start = 0;
+		ray->draw_end = ray->line_height / 2 + game->scr_height / 2;
+		if (ray->draw_end >= game->scr_height)
+			ray->draw_end = game->scr_height - 1;
+		draw_textured_column(ray, game, x);
 		x++;
 	}
 }
