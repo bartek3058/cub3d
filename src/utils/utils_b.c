@@ -46,10 +46,17 @@ static void	exit_texture_error(t_tex_ctx *tctx, char *msg)
 static void	set_texture(t_tex_ctx *tctx, char **tex_slot, char *value,
 		char *name)
 {
+	char	*trimmed;
+	
 	if (*tex_slot != NULL)
 		exit_texture_error(tctx, name);
 	check_xpm_extension(tctx->ctx->game, value, tctx->ctx->lines, tctx->parts);
-	*tex_slot = ft_strdup(value);
+	{
+		trimmed = ft_strtrim(value, " \t\n\r");
+		if (!trimmed)
+			exit_texture_error(tctx, "malloc failed");
+		*tex_slot = trimmed;
+	}
 }
 
 void	save_texture(t_parse_ctx *ctx, char *key, char *value, char **parts)
