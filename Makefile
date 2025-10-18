@@ -33,7 +33,8 @@ SRCS	=	./main.c\
 			./src/utils/utils_b_4.c\
 			./src/2d/2d_map.c\
 			./src/2d/2d_map_2.c\
-			./src/raycaster/raycaster.c
+			./src/raycaster/raycaster.c\
+			./src/exec/textures.c
 
 OBJS	=	${SRCS:.c=.o}
 

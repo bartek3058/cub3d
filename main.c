@@ -49,6 +49,14 @@ int	main(int argc, char **argv)
 		cleanup_all(&game);
 		exit(EXIT_FAILURE);
 	}
+	/* load textures after window is created (mlx needs a valid display)
+	If texture loading fails, clean up and exit */
+	if (!load_textures(&game))
+	{
+		fprintf(stderr, "Failed to load textures\n");
+		cleanup_all(&game);
+		exit(EXIT_FAILURE);
+	}
 	//init_player_from_map(&game);
 	init_player(&game);
 	game.img.img = mlx_new_image(game.mlx, game.scr_width, game.scr_height);

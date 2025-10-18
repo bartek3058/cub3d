@@ -55,6 +55,8 @@ typedef struct s_myimg
 	int		bpp;		// bity na piksel
 	int		line_len;	// długość linii w bajtach
 	int		endian;		// endian
+	int		width;		// szerokość obrazu
+	int		height;		// wysokość obrazu
 }	t_myimg;
 
 typedef struct s_mytextures
@@ -239,4 +241,7 @@ void	update_player_controls(t_mygame *game);
 //raycaster
 void	raycaster(t_myray *ray, t_mygame *game);
 int		darker_color(int *color, double factor);
+
+//textures
+void	draw_textured_column(t_myray *ray, t_mygame *game, int x);
 #endif
