@@ -169,6 +169,7 @@ void	draw_background(t_mygame *game);
 void	free_split(char **arr);
 void	free_myconfig(t_myconfig *cfg);
 void	free_map_grid(t_mygame *game);
+void	free_2(t_mygame *game);
 
 //parser
 void	parser(char **lines, t_mygame *game);
@@ -211,6 +212,7 @@ void	update_camera_vectors(t_myplayer *player, double angle);
 //cleanup
 void	cleanup_display(t_mygame *game);
 void	cleanup_all(t_mygame *game);
+void	cleanup_all_t(t_mygame *game);
 
 //utils
 void	check_config(char **lines, t_mygame *game);

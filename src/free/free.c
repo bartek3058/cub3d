@@ -51,3 +51,14 @@ void	free_map_grid(t_mygame *game)
 	free(game->map.grid);
 	game->map.grid = NULL;
 }
+void	free_2(t_mygame *game)
+{
+	if(game->textures.north.img)
+		mlx_destroy_image(game->mlx, game->textures.north.img);
+	if(game->textures.south.img)
+		mlx_destroy_image(game->mlx, game->textures.south.img);
+	if(game->textures.east.img)
+		mlx_destroy_image(game->mlx, game->textures.east.img);
+	if(game->textures.west.img)
+		mlx_destroy_image(game->mlx, game->textures.west.img);
+}

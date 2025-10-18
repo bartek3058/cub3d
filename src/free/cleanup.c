@@ -44,9 +44,26 @@ void	cleanup_display(t_mygame *game)
 {
 	if (game->img.img)
 	{
-		mlx_destroy_image(game->mlx, game->img. img);
+		mlx_destroy_image(game->mlx, game->img.img);
 		game->img.img = NULL;
 	}
+	free_2(game);
+	free_myconfig(&game->config);
+	free_map_grid(game);
+	if (game->win)
+	{
+		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
+	}
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		game->mlx = NULL;
+	}
+}
+static void	cleanup_display_t(t_mygame *game)
+{
 	free_myconfig(&game->config);
 	free_map_grid(game);
 	if (game->win)
@@ -65,5 +82,10 @@ void	cleanup_display(t_mygame *game)
 void	cleanup_all(t_mygame *game)
 {
 	cleanup_display(game);
+	cleanup_map(game);
+}
+void	cleanup_all_t(t_mygame *game)
+{
+	cleanup_display_t(game);
 	cleanup_map(game);
 }

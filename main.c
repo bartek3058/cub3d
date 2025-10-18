@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	if (!load_textures(&game))
 	{
 		fprintf(stderr, "Failed to load textures\n");
-		cleanup_all(&game);
+		cleanup_all_t(&game);
 		exit(EXIT_FAILURE);
 	}
 	//init_player_from_map(&game);
