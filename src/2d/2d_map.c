@@ -60,7 +60,7 @@ void	draw_2d_map(t_mygame *game)
 {
 	int		x;
 	int		y;
-	char	cell;
+	char	c;
 	int		color;
 
 	y = 0;
@@ -69,15 +69,15 @@ void	draw_2d_map(t_mygame *game)
 		x = 0;
 		while (x < game->map.width)
 		{
-			cell = game->map.grid[y][x];
-			if (cell == '1')
+			c = game->map.grid[y][x];
+			if (c == '1')
 				color = 0xFFFFFF;
-			else if (cell == '0')
+			else if (c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '0')
 				color = 0xCCCCCC;
-			else if (cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
-				color = 0xCCCCCC;
+			else if (c == '\0' || c == '\n' || c == '\t' || c == '\r')
+				break ;
 			else
-				color = 0xFF00FF;
+				color = 0x555555;
 			draw_square(game, x, y, color);
 			x++;
 		}

@@ -52,7 +52,6 @@ void	exit_error(const char *msg)
 	len = 0;
 	while (msg[len])
 		len++;
-	write(2, "Error\n", 6);
 	write(2, msg, len);
 	write(2, "\n", 1);
 	exit(EXIT_FAILURE);

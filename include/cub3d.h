@@ -179,7 +179,7 @@ void	free_2(t_mygame *game);
 
 //parser
 void	parser(char **lines, t_mygame *game);
-int		parse_map(char **lines, t_mygame *game);
+int		parse_map(t_parse_ctx ctx, t_mygame *game);
 void	set_player_direction(t_myplayer *player, char dir);
 int		parse_config(char **lines, t_mygame *game);
 void	draw_background(t_mygame *game);
