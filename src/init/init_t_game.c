@@ -22,27 +22,6 @@ static void	init_myconfig(t_mygame *game)
 	game->config.ceil_color = -1;
 }
 
-//void	allocate_map_grid(t_mygame *game)
-//{
-//	int	y;
-
-//	if (game->map.height <= 0)
-//		return ;
-//	y = 0;
-//	game->map.grid = malloc(sizeof(char *) * game->map.height);
-//	if (!game->map.grid)
-//		exit_error("Error: malloc failed for map grid");
-//	while (y < game->map.height)
-//	{
-//		game->map.grid[y] = ft_strdup(test_map[y]);
-//		if (!game->map.grid[y])
-//		{
-//			free_map_grid(game);
-//			exit_error("Error: malloc failed for map row");
-//		}
-//		y++;
-//	}
-//}
 
 void	init_game(t_mygame *game)
 {
@@ -64,35 +43,7 @@ void	init_game(t_mygame *game)
 	game->prev_mouse_x = game->scr_width / 2;
 	game->prev_mouse_y = game->scr_height / 2;
 	init_myconfig(game);
-	/* initialize textures to safe defaults (avoid uninitialized memory) */
-	game->textures.north.img = NULL;
-	game->textures.north.addr = NULL;
-	game->textures.north.bpp = 0;
-	game->textures.north.line_len = 0;
-	game->textures.north.endian = 0;
-	game->textures.north.width = 0;
-	game->textures.north.height = 0;
-	game->textures.south.img = NULL;
-	game->textures.south.addr = NULL;
-	game->textures.south.bpp = 0;
-	game->textures.south.line_len = 0;
-	game->textures.south.endian = 0;
-	game->textures.south.width = 0;
-	game->textures.south.height = 0;
-	game->textures.west.img = NULL;
-	game->textures.west.addr = NULL;
-	game->textures.west.bpp = 0;
-	game->textures.west.line_len = 0;
-	game->textures.west.endian = 0;
-	game->textures.west.width = 0;
-	game->textures.west.height = 0;
-	game->textures.east.img = NULL;
-	game->textures.east.addr = NULL;
-	game->textures.east.bpp = 0;
-	game->textures.east.line_len = 0;
-	game->textures.east.endian = 0;
-	game->textures.east.width = 0;
-	game->textures.east.height = 0;
+	init_textures(game);
 }
 
 int load_texture(t_mygame *game, t_myimg *img, char *path)

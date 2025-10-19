@@ -86,6 +86,13 @@ typedef struct s_myray
 	int		map_y;
 	double	side_dist_x;
 	double	side_dist_y;
+	/* texture drawing state (populated during raycast column draw) */
+	t_myimg *tex;      /* selected texture for this ray */
+	int     tex_x;     /* texture X coordinate for this column */
+	int     tex_y;     /* texture Y coordinate for this column */
+	double  tex_pos;   /* current texture Y position (double) */
+	double  tex_step;  /* texture step per screen pixel */
+	double	wall_x;
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	perp_wall_dist;
@@ -202,6 +209,8 @@ void	init_player(t_mygame *game);
 int		load_texture(t_mygame *game, t_myimg *img, char *path);
 int		load_textures(t_mygame *game);
 
+//init_t_textures
+void	init_textures(t_mygame *game);
 //hooks
 int		close_hook(t_mygame *game);
 int		key_press(int keycode, t_mygame *game);
@@ -246,4 +255,9 @@ int		darker_color(int *color, double factor);
 
 //textures
 void	draw_textured_column(t_myray *ray, t_mygame *game, int x);
+
+//utils_textures
+void	fallback_to_flat_color(t_myray *ray, t_mygame *game, int x);
+int		tex_get_pixel(t_myimg *tex, int tx, int ty);
+void	draw_tex_pixel(t_mygame *game, t_myray *ray, int x, int y);
 #endif

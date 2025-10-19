@@ -24,6 +24,7 @@ SRCS	=	./main.c\
 			./src/init/init.c\
 			./src/init/init_player.c\
 			./src/init/init_t_game.c\
+			./src/init/init_t_textures.c\
 			./src/free/cleanup.c\
 			./src/exec/hooks.c\
 			./src/exec/player.c\
@@ -31,10 +32,11 @@ SRCS	=	./main.c\
 			./src/utils/utils_b_2.c\
 			./src/utils/utils_b_3.c\
 			./src/utils/utils_b_4.c\
+			./src/utils/utils_textures.c\
 			./src/2d/2d_map.c\
 			./src/2d/2d_map_2.c\
 			./src/raycaster/raycaster.c\
-			./src/exec/textures.c
+			./src/raycaster/textures.c
 
 OBJS	=	${SRCS:.c=.o}
 
