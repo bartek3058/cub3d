@@ -166,7 +166,6 @@ int		game_loop(t_mygame *game);
 
 // map
 void	check_map_name(int argc, char **argv);
-void	check_map_size(char **argv);
 char	**load_map(t_mygame *game, char *filename);
 
 //background
@@ -231,7 +230,6 @@ void	check_color(t_color_ctx *ctx, int r, int g, int b);
 void	save_texture(t_parse_ctx *ctx, char *key, char *value, char **parts);
 void	save_color(t_parse_ctx *ctx, char *key, char *value, char **parts);
 void	exit_error(const char *msg);
-char	*ft_strtrim(char const *s1, char const *set);
 int		parse_single_color_component(t_color_ctx *ctx, char *component);
 
 //2d_map
