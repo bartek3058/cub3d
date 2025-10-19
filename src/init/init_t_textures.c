@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_t_game.c                                      :+:      :+:    :+:   */
+/*   init_t_textures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:40:40 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/16 18:03:48 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:01:42 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ static void	init_texture_east(t_mygame *game)
 	game->textures.east.height = 0;
 }
 
-void init_textures(t_mygame *game)
+void	init_textures(t_mygame *game)
 {
-	/* initialize textures to safe defaults (avoid uninitialized memory) */
-
 	init_texture_north(game);
 	init_texture_south(game);
 	init_texture_west(game);

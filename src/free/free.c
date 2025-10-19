@@ -6,7 +6,7 @@
 /*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 15:00:13 by brogalsk          #+#    #+#             */
-/*   Updated: 2025/10/16 15:00:29 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:00:48 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ void	free_map_grid(t_mygame *game)
 	free(game->map.grid);
 	game->map.grid = NULL;
 }
+
 void	free_2(t_mygame *game)
 {
-	if(game->textures.north.img)
+	if (game->textures.north.img)
 		mlx_destroy_image(game->mlx, game->textures.north.img);
-	if(game->textures.south.img)
+	if (game->textures.south.img)
 		mlx_destroy_image(game->mlx, game->textures.south.img);
-	if(game->textures.east.img)
+	if (game->textures.east.img)
 		mlx_destroy_image(game->mlx, game->textures.east.img);
-	if(game->textures.west.img)
+	if (game->textures.west.img)
 		mlx_destroy_image(game->mlx, game->textures.west.img);
 }

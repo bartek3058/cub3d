@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   utils_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/16 14:50:19 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:10:36 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	fallback_to_flat_color(t_myray *ray, t_mygame *game, int x)
 {
-	int color;
-	int y;
+	int	color;
+	int	y;
 
 	color = 0xFF0000;
 	if (ray->side == 1)
@@ -29,14 +29,14 @@ void	fallback_to_flat_color(t_myray *ray, t_mygame *game, int x)
 }
 
 /* helper: read a pixel from texture safely */
-int tex_get_pixel(t_myimg *tex, int tx, int ty)
+int	tex_get_pixel(t_myimg *tex, int tx, int ty)
 {
 	char	*ptr;
 	int		pix;
 
 	ptr = NULL;
 	pix = 0xFF00FF;
-	if ((tex == NULL) || (tex->addr == NULL) ||  (tx < 0) || (tx >= tex->width)
+	if ((tex == NULL) || (tex->addr == NULL) || (tx < 0) || (tx >= tex->width)
 		|| (ty < 0) || (ty >= tex->height))
 		return (pix);
 	ptr = tex->addr + (ty * tex->line_len + tx * (tex->bpp / 8));
@@ -45,10 +45,10 @@ int tex_get_pixel(t_myimg *tex, int tx, int ty)
 }
 
 /* helper: sample texture, shade if needed and draw single pixel row */
-void draw_tex_pixel(t_mygame *game, t_myray *ray, int x, int y)
+void	draw_tex_pixel(t_mygame *game, t_myray *ray, int x, int y)
 {
-	unsigned int    color;
-	int             c;
+	unsigned int	color;
+	int				c;
 
 	ray->tex_y = (int)(ray->tex_pos);
 	if (ray->tex_y < 0)

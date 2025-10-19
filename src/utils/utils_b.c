@@ -6,7 +6,7 @@
 /*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:29:28 by brogalsk          #+#    #+#             */
-/*   Updated: 2025/10/17 10:32:31 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:11:11 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	set_texture(t_tex_ctx *tctx, char **tex_slot, char *value,
 		char *name)
 {
 	char	*trimmed;
-	
+
 	if (*tex_slot != NULL)
 		exit_texture_error(tctx, name);
 	check_xpm_extension(tctx->ctx->game, value, tctx->ctx->lines, tctx->parts);

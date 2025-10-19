@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/16 14:50:19 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:04:46 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
 /* select correct texture for this hit */
-static t_myimg *select_texture(t_myray *ray, t_mygame *game)
+static t_myimg	*select_texture(t_myray *ray, t_mygame *game)
 {
-	t_myimg *res;
+	t_myimg	*res;
 
 	res = NULL;
 	if (ray == NULL || game == NULL)
@@ -36,7 +36,7 @@ static t_myimg *select_texture(t_myray *ray, t_mygame *game)
 }
 
 /* compute fractional wall hit position (0..1) */
-static double compute_wall_x(t_myray *ray, t_mygame *game)
+static double	compute_wall_x(t_myray *ray, t_mygame *game)
 {
 	double	wall_x;
 
@@ -50,7 +50,7 @@ static double compute_wall_x(t_myray *ray, t_mygame *game)
 	return (wall_x - floor(wall_x));
 }
 
-static void calculate_texture_x(t_myray *ray)
+static void	calculate_texture_x(t_myray *ray)
 {
 	ray->tex_x = (int)(ray->wall_x * (double)ray->tex->width);
 	if (ray->side == 0)
@@ -66,7 +66,7 @@ static void calculate_texture_x(t_myray *ray)
 }
 
 /* draw textured vertical stripe at screen column x */
-void draw_textured_column(t_myray *ray, t_mygame *game, int x)
+void	draw_textured_column(t_myray *ray, t_mygame *game, int x)
 {
 	int	y;
 
@@ -75,11 +75,12 @@ void draw_textured_column(t_myray *ray, t_mygame *game, int x)
 	if (ray->tex == NULL || ray->tex->addr == NULL)
 	{
 		fallback_to_flat_color(ray, game, x);
-		return;
+		return ;
 	}
 	calculate_texture_x(ray);
 	ray->tex_step = (double)ray->tex->height / (double)ray->line_height;
-	ray->tex_pos = (ray->draw_start - game->scr_height / 2 + ray->line_height / 2) * ray->tex_step;
+	ray->tex_pos = (ray->draw_start - game->scr_height / 2
+			+ ray->line_height / 2) * ray->tex_step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{

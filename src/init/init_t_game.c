@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:40:40 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/16 18:03:48 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:03:02 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	init_myconfig(t_mygame *game)
 	game->config.floor_color = -1;
 	game->config.ceil_color = -1;
 }
-
 
 void	init_game(t_mygame *game)
 {
@@ -46,10 +45,10 @@ void	init_game(t_mygame *game)
 	init_textures(game);
 }
 
-int load_texture(t_mygame *game, t_myimg *img, char *path)
+int	load_texture(t_mygame *game, t_myimg *img, char *path)
 {
-	int img_width;
-	int img_height;
+	int	img_width;
+	int	img_height;
 
 	img_width = 0;
 	img_height = 0;
@@ -59,7 +58,8 @@ int load_texture(t_mygame *game, t_myimg *img, char *path)
 		fprintf(stderr, "Error loading texture from %s\n", path);
 		return (0);
 	}
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
+			&img->line_len, &img->endian);
 	if (!img->addr)
 	{
 		fprintf(stderr, "Error getting data address for texture %s\n", path);
@@ -70,7 +70,7 @@ int load_texture(t_mygame *game, t_myimg *img, char *path)
 	return (1);
 }
 
-int load_textures(t_mygame *game)
+int	load_textures(t_mygame *game)
 {
 	if (!game->config.tex_no || !game->config.tex_so
 		|| !game->config.tex_we || !game->config.tex_ea)

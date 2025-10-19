@@ -6,7 +6,7 @@
 /*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 10:34:45 by brogalsk          #+#    #+#             */
-/*   Updated: 2025/10/17 10:41:35 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:14:54 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ typedef struct s_myray
 	double	side_dist_x;
 	double	side_dist_y;
 	/* texture drawing state (populated during raycast column draw) */
-	t_myimg *tex;      /* selected texture for this ray */
-	int     tex_x;     /* texture X coordinate for this column */
-	int     tex_y;     /* texture Y coordinate for this column */
-	double  tex_pos;   /* current texture Y position (double) */
-	double  tex_step;  /* texture step per screen pixel */
+	t_myimg	*tex; /* selected texture for this ray */
+	int		tex_x; /* texture X coordinate for this column */
+	int		tex_y; /* texture Y coordinate for this column */
+	double	tex_pos; /* current texture Y position (double) */
+	double	tex_step; /* texture step per screen pixel */
 	double	wall_x;
 	double	delta_dist_x;
 	double	delta_dist_y;

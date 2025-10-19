@@ -6,7 +6,7 @@
 /*   By: brogalsk <brogalsk@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:57:21 by brogalsk          #+#    #+#             */
-/*   Updated: 2025/10/16 14:59:59 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:00:14 by brogalsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	cleanup_display(t_mygame *game)
 		game->mlx = NULL;
 	}
 }
+
 static void	cleanup_display_t(t_mygame *game)
 {
 	free_myconfig(&game->config);
@@ -84,6 +85,7 @@ void	cleanup_all(t_mygame *game)
 	cleanup_display(game);
 	cleanup_map(game);
 }
+
 void	cleanup_all_t(t_mygame *game)
 {
 	cleanup_display_t(game);
