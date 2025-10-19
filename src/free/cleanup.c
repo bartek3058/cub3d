@@ -12,18 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-// static void    cleanup_textures(t_mygame *game)
-// {
-//     free(game->config.tex_no);
-//     free(game->config.tex_so);
-//     free(game->config.tex_we);
-//     free(game->config.tex_ea);
-//     game->config.tex_no = NULL;
-//     game->config.tex_so = NULL;
-//     game->config.tex_we = NULL;
-//     game->config.tex_ea = NULL;
-// }
-
 static void	cleanup_map(t_mygame *game)
 {
 	int	i;

@@ -52,8 +52,6 @@ void	init_map(t_mygame *game, char **lines, int a)
 		&& !is_blank(lines[a + game->map.height]))
 		game->map.height++;
 	game->map.width = get_map_width(&lines[a]);
-	printf("Map dimensions: width=%d, height=%d\n",
-		game->map.width, game->map.height);
 	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!game->map.grid)
 		return ;

@@ -37,12 +37,6 @@ void	rotate_player(t_mygame *game)
 {
 	game->player.mv_dir_x = game->player.dir_x;
 	game->player.mv_dir_y = game->player.dir_y;
-	printf("Rotated player to dir: (%.2f, %.2f); angle: %.2f\n",
-		game->player.dir_x, game->player.dir_y, game->player.angle);
-	printf("Player plane to: (%.2f, %.2f)\n",
-		game->player.plane_x, game->player.plane_y);
-	printf("Player move to: (%.2f, %.2f)\n",
-		game->player.mv_dir_x, game->player.mv_dir_y);
 }
 
 void	rotate_camera(t_mygame *game, double angle)
@@ -51,12 +45,6 @@ void	rotate_camera(t_mygame *game, double angle)
 	game->player.angle = fmod(game->player.angle + angle, 2 * 3.14159);
 	if (game->player.angle < 0)
 		game->player.angle += 2 * 3.14159;
-	printf("Rotated player to dir: (%.2f, %.2f); angle: %.2f\n",
-		game->player.dir_x, game->player.dir_y, game->player.angle);
-	printf("Player plane to: (%.2f, %.2f)\n",
-		game->player.plane_x, game->player.plane_y);
-	printf("Player move to: (%.2f, %.2f)\n",
-		game->player.mv_dir_x, game->player.mv_dir_y);
 }
 
 void	update_player_controls(t_mygame *game)

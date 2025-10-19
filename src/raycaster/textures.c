@@ -6,13 +6,12 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/19 14:04:46 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:33:56 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-/* select correct texture for this hit */
 static t_myimg	*select_texture(t_myray *ray, t_mygame *game)
 {
 	t_myimg	*res;
@@ -35,7 +34,6 @@ static t_myimg	*select_texture(t_myray *ray, t_mygame *game)
 	return (res);
 }
 
-/* compute fractional wall hit position (0..1) */
 static double	compute_wall_x(t_myray *ray, t_mygame *game)
 {
 	double	wall_x;
@@ -65,7 +63,6 @@ static void	calculate_texture_x(t_myray *ray)
 	}
 }
 
-/* draw textured vertical stripe at screen column x */
 void	draw_textured_column(t_myray *ray, t_mygame *game, int x)
 {
 	int	y;

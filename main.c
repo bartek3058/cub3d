@@ -12,28 +12,35 @@
 
 #include "include/cub3d.h"
 
-int game_loop(t_mygame *game)
+int	game_loop(t_mygame *game)
 {
-	int img_size;
+	int	img_size;
 
-	// Update player position based on keys pressed
 	update_player_controls(game);
-
 	img_size = game->img.line_len * game->scr_height;
 	memset(game->img.addr, 0, img_size);
 	draw_background(game);
-	raycaster(&game->ray, game); // Rysuje widok 3D do bufora obrazu
-	draw_2d_map(game); // Rysuje mapę 2D do bufora obrazu
+	raycaster(&game->ray, game);
+	draw_2d_map(game);
 	draw_player(game);
 	draw_crosshair(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return (0);
 }
 
-static void	none(int argc, char **argv) // ignorowanie warningów o nieużywanych zmiennych
+static void	none(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
+}
+
+static void	hooks_handle(t_mygame *game)
+{
+	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
+	mlx_hook(game->win, 6, 1L << 6, mouse_move, game);
+	mlx_hook(game->win, 17, 0, close_hook, game);
+	mlx_loop_hook(game->mlx, game_loop, game);
 }
 
 int	main(int argc, char **argv)
@@ -49,26 +56,17 @@ int	main(int argc, char **argv)
 		cleanup_all(&game);
 		exit(EXIT_FAILURE);
 	}
-	/* load textures after window is created (mlx needs a valid display)
-	If texture loading fails, clean up and exit */
 	if (!load_textures(&game))
 	{
 		fprintf(stderr, "Failed to load textures\n");
 		cleanup_all_t(&game);
 		exit(EXIT_FAILURE);
 	}
-	//init_player_from_map(&game);
 	init_player(&game);
 	game.img.img = mlx_new_image(game.mlx, game.scr_width, game.scr_height);
-	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_len, &game.img.endian);
-	// game.config.ceil_color = 0xFF0000;
-	// game.config.floor_color = 0xFF0000;
-	// draw_background(&game);
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
-	mlx_hook(game.win, 17, 0, close_hook, &game);
-	mlx_loop_hook(game.mlx, game_loop, &game);
+	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp,
+			&game.img.line_len, &game.img.endian);
+	hooks_handle(&game);
 	mlx_loop(game.mlx);
 	cleanup_all(&game);
 	exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 10:50:04 by tszymans          #+#    #+#             */
-/*   Updated: 2025/10/19 14:10:36 by brogalsk         ###   ########.fr       */
+/*   Updated: 2025/10/19 14:34:18 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	fallback_to_flat_color(t_myray *ray, t_mygame *game, int x)
 	}
 }
 
-/* helper: read a pixel from texture safely */
 int	tex_get_pixel(t_myimg *tex, int tx, int ty)
 {
 	char	*ptr;
@@ -44,7 +43,6 @@ int	tex_get_pixel(t_myimg *tex, int tx, int ty)
 	return (pix);
 }
 
-/* helper: sample texture, shade if needed and draw single pixel row */
 void	draw_tex_pixel(t_mygame *game, t_myray *ray, int x, int y)
 {
 	unsigned int	color;
